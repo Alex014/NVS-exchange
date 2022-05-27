@@ -43,7 +43,7 @@ try {
         foreach ($slots as $slot) {
             if ('PAYED' === $slot['status']) {
                 $name = Emercoin::name_show($slot['name']);
-                var_dump($name);
+                print_r($name);
             }
         }
     }
