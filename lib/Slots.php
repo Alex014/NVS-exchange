@@ -48,7 +48,11 @@ class Stots {
 
     public function locateSlot(string $name)
     {
-        return Emercoin::name_show($name);
+        try {
+            return Emercoin::name_show($name);
+        } catch (\Error $e) {
+            return false;
+        }
     }
 
     public function lastSlotTime()
