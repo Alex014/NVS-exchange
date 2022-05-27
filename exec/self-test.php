@@ -24,7 +24,11 @@ Emercoin::$username = $config['emercoin']['user'];
 Emercoin::$password = $config['emercoin']['password'];
 
 try {
-    $db->listSlots();
+    $slots = $db->listSlots();
+    if ($argc > 1 && '-debug' === $argv[1]) {
+        print_r($slots);
+    }
+
 } catch (\Exception $err) {
     echo "\nDB - FAILED (" . $err->getMessage() . ")\n";
 }
@@ -35,11 +39,18 @@ if (!isset($err)) {
 
 try {
     Emercoin::getinfo();
-    Emercoin::name_filter("worm:token:ness_exchange_v1_v2:.+");
+    $name_list = Emercoin::name_list(" ");
+    if ($argc > 1 && '-debug' === $argv[1]) {
+        print_r($name_list);
+    }
 } catch (\Exception $err) {
     echo "\nEmercoin NVS - FAILED (" . $err->getMessage() . ")\n";
 }
 
 if (!isset($err)) {
     echo "\nEmercoin NVS - OK\n";
+}
+
+if ($argc == 1) {
+    echo "\nUse 'php check.php -debug' for more info\n";
 }

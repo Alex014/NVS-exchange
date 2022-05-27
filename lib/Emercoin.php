@@ -367,11 +367,17 @@ class Emercoin {
    * @param type $valuetype (string, optional) If "hex" or "base64" is specified then it will print value in corresponding format instead of string.
    * @return type
    */
-  public static function name_list( $name, $valuetype='') {
+  public static function name_list( $name='', $valuetype='') {
     $url = self::$username.':'.self::$password.'@'.self::$address.':'.self::$port.'/';
     self::$rpcClient = new JsonRpcClient($url, self::$debug);
     
-    return self::$rpcClient->name_list($name, $valuetype);
+    if (('' === $name) && ('' === $valuetype)) {
+      return self::$rpcClient->name_list();
+    } elseif ('' === $valuetype) {
+      return self::$rpcClient->name_list($name);
+    } else {
+      return self::$rpcClient->name_list($name, $valuetype);
+    }
   }
   
   /**
