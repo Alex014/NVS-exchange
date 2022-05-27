@@ -46,9 +46,9 @@ class Stots {
         return $this->db->findSlot($name);
     }
 
-    public function locateSlot(string $key)
+    public function locateSlot(string $name)
     {
-        return Emercoin::name_list($key);
+        return Emercoin::name_show($name);
     }
 
     public function lastSlotTime()
