@@ -50,7 +50,7 @@ class Stots {
     {
         try {
             return Emercoin::name_show($name);
-        } catch (\Error $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }
