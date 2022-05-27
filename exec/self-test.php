@@ -39,9 +39,13 @@ if (!isset($err)) {
 
 try {
     Emercoin::getinfo();
-    $name_list = Emercoin::name_list(" ");
     if ($argc > 1 && '-debug' === $argv[1]) {
-        print_r($name_list);
+        foreach ($slots as $slot) {
+            if ('PAYED' === $slot['status']) {
+                $name = Emercoin::name_show($slot['name']);
+                var_dump($name);
+            }
+        }
     }
 } catch (\Exception $err) {
     echo "\nEmercoin NVS - FAILED (" . $err->getMessage() . ")\n";
