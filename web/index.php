@@ -29,15 +29,16 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
             die('Time restriction');
         }
 
-        try {
+        $slot = $slots->findSlot($_POST['name']);
+
+        if (!empty($slot)) {
+            header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
+            $error = 'db';
+        } else {
             $slot_id = $slots->createSlot($_POST['name'], $_POST['value']);
             header('location: /slot.php?slot=' . $slot_id );
         }
-        catch (PDOException $e) {
-            header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
-            $error = 'db';
-            $slot = $slots->findSlot($_POST['name']);
-        }
+
     }
 } else {
     $name = '';
