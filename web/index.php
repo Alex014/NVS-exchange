@@ -26,7 +26,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
 
         if ((time() - $slots->lastSlotTime()) < 30) {
             header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
-            die('Time restriction');
+            die('Time restriction (30 sec)');
         }
 
         $slot = $slots->findSlot($_POST['name']);
