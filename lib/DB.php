@@ -36,6 +36,13 @@ class DB implements iSlotDatabase {
         return $st->fetch();
     }
 
+    public function deleteSlot(string $slot_id)
+    {
+        $st = $this->connection->prepare("DELETE FROM slots WHERE `slot_id` = ?");
+
+        return $st->execute([$slot_id]);
+    }
+
     public function findSlot(string $name)
     {
         $st = $this->connection->prepare("SELECT * FROM slots WHERE `name` = ?");

@@ -65,6 +65,11 @@ class Stots {
         }
     }
 
+    public function deleteSlot(string $slot_id)
+    {
+        $this->db->deleteSlot($slot_id);
+    }
+
     public function processSlot(string $slot_id)
     {
         $slot = $this->db->getSlot($slot_id);

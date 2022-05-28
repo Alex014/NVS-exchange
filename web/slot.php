@@ -24,6 +24,10 @@ if ('PAYED' === $slot['status']) {
     $result = true;
 } elseif (isset($_POST["check"])) {
     $result = $slots->processSlot($_GET['slot']);
+} elseif (isset($_POST["delete"])) {
+    $result = $slots->deleteSlot($_GET['slot']);
+    header('location: /');
+    die();
 }
 
 $slot = $slots->showSlot($_GET['slot']);
@@ -110,7 +114,7 @@ $slot = $slots->showSlot($_GET['slot']);
                 </h2>
 
                 <h3>NAME: <?= htmlentities($slot['name']) ?></h3>
-                <h3>VALUE: <?= htmlentities($slot['value']) ?></h3>
+                <h3>VALUE: <?= nl2br(htmlentities($slot['value'])) ?></h3>
 
                 <?php if(isset($result)): ?>
                     <?php if($result): ?>
@@ -132,10 +136,21 @@ $slot = $slots->showSlot($_GET['slot']);
                     <?php endif; ?>
                 <?php else: ?>
 
-                <form method="POST">
+                    <dr/>
+
+                <div class="float-start">
+                <form method="POST"  class="float-left">
                     <input type="hidden" name="check" value=""/>
                     <button type="submit" class="btn btn-primary">Confirm money send</button>
                 </form>
+                </div>
+
+                <div class="float-end">
+                <form method="POST" class="float-right">
+                    <input type="hidden" name="delete" value=""/>
+                    <button type="submit" class="btn btn-danger">Delete slot (!)</button>
+                </form>
+                </div>
 
                 <?php endif; ?>
             </div>

@@ -24,7 +24,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
     } else {
         $last_slot_time = $slots->lastSlotTime();
 
-        if ((time() - $slots->lastSlotTime()) < 10) {
+        if ((time() - $slots->lastSlotTime()) < 30) {
             header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
             die('Time restriction');
         }
@@ -69,13 +69,13 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="name" class="form-control" id="name" name="name" value="<?=$name?>" placeholder="Name" required>
-            <div id="emailHelp" class="form-text">Emercoin NVS name</div>
+            <div id="nameHelp" class="form-text">Emercoin NVS name</div>
         </div>
 
         <div class="mb-3">
             <label for="value" class="form-label">Value</label>
-            <input type="text" class="form-control" id="value" name="value" value="<?=$value?>" placeholder="Value" required>
-            <div id="emailHelp" class="form-text">Emercoin NVS value</div>
+            <textarea name="value" id="value" class="form-control" cols="30" rows="10" placeholder="Value" required><?=$value?></textarea>
+            <div id="valueHelp" class="form-text">Emercoin NVS value</div>
         </div>
         <?php if ('nvs' === $error): ?>
         <div class="alert alert-danger" role="alert">
