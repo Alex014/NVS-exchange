@@ -20,6 +20,11 @@ $slots = new Stots($db, $config['exchange']['min_sum']);
 
 $slot = $slots->showSlot($_GET['slot']);
 
+if (empty($slot)) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+    die('Slot not found');
+}
+
 if ('PAYED' === $slot['status']) {
     $result = true;
 } elseif (isset($_POST["check"])) {
