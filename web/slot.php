@@ -104,15 +104,15 @@ $slot = $slots->showSlot($_GET['slot']);
         <div class="row">
             <div class="col">
                 <h1> <a href="/">&lt;&lt;&lt; GO BACK</a> </h1>
-
-                <php foreach ($slot['addr'] as $name => $addr): ?>
+                
+                <?php foreach ($slot['addr'] as $name => $addr): ?>
                 <h2>
-                    <b><?= $addr['descr']?></b> Send <?=  $addr['min_sum'] ?> <?=$name?> to
+                    <b><?= $addr['descr']?>:</b> Send <?=  $addr['min_sum'] ?> <?=$name?> to
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-line me-2"><?=  $addr['addr'] ?></span> <button onclick="copy('<?=  $addr['addr'] ?>','#copy_button')" id="copy_button" class="btn btn-sm btn-success copy-button">Copy</button>
                     </div>
                 </h2>
-                <php endforeach; ?>
+                <?php endforeach; ?>
 
                 <h3>NAME: <?= htmlentities($slot['name']) ?></h3>
                 <h3>VALUE: <?= nl2br(htmlentities($slot['value'])) ?></h3>

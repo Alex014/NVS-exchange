@@ -17,8 +17,8 @@ use wallets\Ness;
 
 class Container {
     public static function createSlots() {
-        $config = require_once __DIR__ . '/../config/config.php';
-
+        $config = require __DIR__ . '/../config/config.php';
+        
         Emercoin::$address = $config['emercoin']['host'];
         Emercoin::$port = $config['emercoin']['port'];
         Emercoin::$username = $config['emercoin']['user'];

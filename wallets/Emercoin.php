@@ -12,7 +12,7 @@ class Emercoin implements IWallet {
 
     public function __construct()
     {
-        $config = require_once __DIR__ . '/../config/config.php';
+        $config = require __DIR__ . '/../config/config.php';
         $femc = $config['emercoin'];
 
         Emc::$address = $femc['host'];

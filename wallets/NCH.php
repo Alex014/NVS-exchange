@@ -13,7 +13,7 @@ class NCH implements IWallet {
 
     public function __construct()
     {
-        $config = require_once __DIR__ . '/../config/config.php';
+        $config = require __DIR__ . '/../config/config.php';
         $ness = $config['ness'];
         $this->ness = new Privateness($ness['host'], (int) $ness['port'], $ness['wallet_id'], $ness['password'], $ness['prefix']);
     }

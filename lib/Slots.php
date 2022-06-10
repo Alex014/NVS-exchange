@@ -49,7 +49,7 @@ class Stots {
             return false;
         }
 
-        $slot['addr'] = json_decode($slot['addr']);
+        $slot['addr'] = json_decode($slot['addr'], true);
 
         return $slot;
     }
