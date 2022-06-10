@@ -35,7 +35,7 @@ class Container {
         $Ness = new Ness();
         $Ness->setMinSum($config['exchange']['min_sum']['ness']);
         $NCH = new NCH();
-        $Ness->setMinSum($config['exchange']['min_sum']['nch']);
+        $NCH->setMinSum($config['exchange']['min_sum']['nch']);
         
         return new Stots($db, $Emercoin, $Ness, $NCH);
     }
