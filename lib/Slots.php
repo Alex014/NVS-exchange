@@ -1,35 +1,40 @@
 <?php
 namespace lib;
 require __DIR__ . '/Emercoin.php';
+require __DIR__ . '/IWallet.php';
 
 use \lib\iSlotDatabase;
 use \lib\Emercoin;
+use \lib\IWallet;
 
 class Stots {
 
     private iSlotDatabase $db;
+    private array $wallets;
     public float $min_sum = 0.01;
     public float $days = 100;
 
-    public function __construct(iSlotDatabase $db, float $min_sum = 0.01, int $days = 100)
+    public function __construct(iSlotDatabase $db, IWallet ...$wallets)
     {
         $this->db = $db;
-        $this->min_sum = $min_sum;
-        $this->days = $days;
-
-        $config = require __DIR__ . '/../config/config.php';
-        $femc = $config['emercoin'];
-
-        Emercoin::$address = $femc['host'];
-        Emercoin::$port = $femc['port'];
-        Emercoin::$username = $femc['user'];
-        Emercoin::$password = $femc['password'];
+        $this->wallets = $wallets;
     }
 
     public function createSlot(string $key, string $value): string
     {
         $slot_id = md5(rand(10000, 99999) . time());
-        $addr = (string) Emercoin::createNewAddress($slot_id);
+        
+        $addr = [];
+
+        foreach ($this->wallets as $wallet) {
+            $addr[$wallet->getWalletName()] = [
+                'addr' => $wallet->generateAddress(),
+                'descr' => $wallet->getWalletDescription(),
+                'min_sum' => $wallet->getMinSum()
+            ];
+        }
+
+        $addr = json_encode($addr);
 
         $this->db->createSlot($key, $value, $addr, $slot_id);
 
@@ -38,7 +43,15 @@ class Stots {
 
     public function showSlot(string $slot_id)
     {
-        return $this->db->getSlot($slot_id);
+        $slot = $this->db->getSlot($slot_id);
+
+        if (empty($slot)) {
+            return false;
+        }
+
+        $slot['addr'] = json_decode($slot['addr']);
+
+        return $slot;
     }
 
     public function findSlot(string $name)
@@ -78,10 +91,18 @@ class Stots {
             return false;
         }
 
-        if (Emercoin::getRecievedByAddress($slot['addr']) >= (float)$this->min_sum) {
-            Emercoin::name_new($slot['name'], $slot['value'], $this->days);
-            $this->db->setSlotPayed($slot_id);
-            return true;
+        $addrs = json_decode($slot['addr']);
+
+        if (empty($addrs)) {
+            return false;
+        }
+
+        foreach ($this->wallets as $wallet) {
+            if ($wallet->checkRecievedByAddress($addrs[$wallet->getWalletName()])) {
+                Emercoin::name_new($slot['name'], $slot['value'], $this->days);
+                $this->db->setSlotPayed($slot_id);
+                return true;
+            }
         }
 
         return false;

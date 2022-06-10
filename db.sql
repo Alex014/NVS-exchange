@@ -39,3 +39,7 @@ ALTER TABLE `slots`
 --
 ALTER TABLE `slots`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `slots` CHANGE `addr` `addr` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; 
+
+ALTER TABLE `slots` DROP INDEX `addr`;

@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/../lib/DB.php';
 require __DIR__ . '/../lib/Emercoin.php';
+require __DIR__ . '/../lib/Ness.php';
 
 use lib\DB;
 use lib\Ness;
@@ -22,6 +23,10 @@ Emercoin::$address = $config['emercoin']['host'];
 Emercoin::$port = $config['emercoin']['port'];
 Emercoin::$username = $config['emercoin']['user'];
 Emercoin::$password = $config['emercoin']['password'];
+
+$ness = $config['ness'];
+$Ness = new Ness($ness['host'], (int) $ness['port'], $ness['wallet_id'], $ness['password'], $ness['prefix']);
+
 
 try {
     $slots = $db->listSlots();
@@ -53,6 +58,12 @@ try {
 
 if (!isset($err)) {
     echo "\nEmercoin NVS - OK\n";
+}
+
+if ($Ness->health()) {
+    echo "\nNESS - OK\n";
+} else {
+    echo "\nNESS - FAILED\n";
 }
 
 if ($argc == 1) {

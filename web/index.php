@@ -1,11 +1,9 @@
 <?php
-require __DIR__ . '/../lib/Slots.php';
-require __DIR__ . '/../lib/DB.php';
+require __DIR__ . '/../lib/Container.php';
 
 ini_set('display_errors', true);
 
-use lib\Stots;
-use lib\DB;
+use lib\Container;
 
 $error = false;
 
@@ -16,8 +14,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
     $name = $_POST['name'];
     $value = $_POST['value'];
 
-    $db = new DB($fdb['host'], $fdb['database'], $fdb['user'], $fdb['password']);
-    $slots = new Stots($db, $config['exchange']['min_sum']);
+    $slots = Container::createSlots();
 
     if (!empty($slots->locateSlot($_POST['name']))) {
         $error = 'nvs';
@@ -55,7 +52,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Privateness Exchange Form</title>
+    <title>Emercoin Name-Value Exchange</title>
   </head>
   <body>
 

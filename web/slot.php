@@ -1,22 +1,16 @@
 <?php
-require __DIR__ . '/../lib/Slots.php';
-require __DIR__ . '/../lib/DB.php';
+require __DIR__ . '/../lib/Container.php';
 
 ini_set('display_errors', true);
 
-use lib\Stots;
-use lib\DB;
+use lib\Container;
 
 if (empty($_GET['slot'])) {
     header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
     die('Slot not found');
 }
 
-$config = require __DIR__ . '/../config/config.php';
-$fdb = $config['db'];
-
-$db = new DB($fdb['host'], $fdb['database'], $fdb['user'], $fdb['password']);
-$slots = new Stots($db, $config['exchange']['min_sum']);
+$slots = Container::createSlots();
 
 $slot = $slots->showSlot($_GET['slot']);
 
@@ -111,12 +105,14 @@ $slot = $slots->showSlot($_GET['slot']);
             <div class="col">
                 <h1> <a href="/">&lt;&lt;&lt; GO BACK</a> </h1>
 
+                <php foreach ($slot['addr'] as $name => $addr): ?>
                 <h2>
-                    Send <?= $config['exchange']['min_sum'] ?> EMC to
+                    <b><?= $addr['descr']?></b> Send <?=  $addr['min_sum'] ?> <?=$name?> to
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-line me-2"><?= $slot['addr'] ?></span> <button onclick="copy('<?= $slot['addr'] ?>','#copy_button')" id="copy_button" class="btn btn-sm btn-success copy-button">Copy</button>
+                        <span class="text-line me-2"><?=  $addr['addr'] ?></span> <button onclick="copy('<?=  $addr['addr'] ?>','#copy_button')" id="copy_button" class="btn btn-sm btn-success copy-button">Copy</button>
                     </div>
                 </h2>
+                <php endforeach; ?>
 
                 <h3>NAME: <?= htmlentities($slot['name']) ?></h3>
                 <h3>VALUE: <?= nl2br(htmlentities($slot['value'])) ?></h3>
