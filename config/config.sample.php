@@ -21,6 +21,10 @@ return [
         'database' => ''
     ],
     'exchange' => [
-        'min_sum' => 0.01
+        'min_sum' => [
+            'emc' => 0.01,
+            'ness' => 0.1,
+            'nch' => 1
+        ]
     ]
 ];
