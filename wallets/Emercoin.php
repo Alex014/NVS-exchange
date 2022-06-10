@@ -48,7 +48,7 @@ class Emercoin implements IWallet {
 
     public function getRecievedByAddress(string $addr)
     {
-        return Emercoin::getRecievedByAddress($addr);
+        return Emc::getRecievedByAddress($addr);
     }
 
     public function checkRecievedByAddress(string $addr)

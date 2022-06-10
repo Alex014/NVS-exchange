@@ -91,14 +91,15 @@ class Stots {
             return false;
         }
 
-        $addrs = json_decode($slot['addr']);
+        $addrs = json_decode($slot['addr'], true);
 
         if (empty($addrs)) {
             return false;
         }
 
         foreach ($this->wallets as $wallet) {
-            if ($wallet->checkRecievedByAddress($addrs[$wallet->getWalletName()]['addr'])) {
+            $wname = $wallet->getWalletName();
+            if (isset($addrs[$wname]) && $wallet->checkRecievedByAddress($addrs[$wname]['addr'])) {
                 Emercoin::name_new($slot['name'], $slot['value'], $this->days);
                 $this->db->setSlotPayed($slot_id);
                 return true;
