@@ -98,7 +98,7 @@ class Stots {
         }
 
         foreach ($this->wallets as $wallet) {
-            if ($wallet->checkRecievedByAddress($addrs[$wallet->getWalletName()])) {
+            if ($wallet->checkRecievedByAddress($addrs[$wallet->getWalletName()]['addr'])) {
                 Emercoin::name_new($slot['name'], $slot['value'], $this->days);
                 $this->db->setSlotPayed($slot_id);
                 return true;
