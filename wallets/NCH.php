@@ -8,7 +8,7 @@ use lib\Ness as Privateness;
 
 class NCH implements IWallet {
 
-    private float $min_sum = 1;
+    private $min_sum = 1;
     private $ness;
 
     public function __construct()

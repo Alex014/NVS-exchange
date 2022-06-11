@@ -8,7 +8,7 @@ use lib\Emercoin as Emc;
 
 class Emercoin implements IWallet {
 
-    private float $min_sum = 0.01;
+    private $min_sum = 0.01;
 
     public function __construct()
     {
