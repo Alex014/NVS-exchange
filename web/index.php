@@ -1,7 +1,6 @@
 <?php
-require __DIR__ . '/../lib/Container.php';
-
 ini_set('display_errors', true);
+require __DIR__ . '/../lib/Container.php';
 
 use lib\Container;
 

@@ -1,7 +1,8 @@
 <?php
 namespace lib;
-require __DIR__ . '/Emercoin.php';
-require __DIR__ . '/IWallet.php';
+require_once __DIR__ . '/Emercoin.php';
+require_once __DIR__ . '/IWallet.php';
+require_once __DIR__ . '/iSlotDatabase.php';
 
 use \lib\iSlotDatabase;
 use \lib\Emercoin;

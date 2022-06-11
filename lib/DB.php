@@ -1,7 +1,7 @@
 <?php
 namespace lib;
 
-require __DIR__ . '/iSlotDatabase.php';
+require_once __DIR__ . '/iSlotDatabase.php';
 
 use \lib\iSlotDatabase;
 
