@@ -11,9 +11,9 @@ use \lib\IWallet;
 class Stots {
 
     private $db;
-    private array $wallets;
-    public float $min_sum = 0.01;
-    public float $days = 100;
+    private $wallets;
+    public $min_sum = 0.01;
+    public $days = 100;
 
     public function __construct(iSlotDatabase $db, IWallet ...$wallets)
     {
