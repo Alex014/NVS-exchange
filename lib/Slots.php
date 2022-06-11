@@ -10,7 +10,7 @@ use \lib\IWallet;
 
 class Stots {
 
-    private iSlotDatabase $db;
+    private $db;
     private array $wallets;
     public float $min_sum = 0.01;
     public float $days = 100;
