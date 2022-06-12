@@ -36,7 +36,6 @@ class Ness {
   public function createAddr(): string 
   {
     $responce = file_get_contents($this->prefix . $this->host . ":" . $this->port . "/api/v1/csrf");
-    // var_dump($responce);
 
     if (empty($responce)) {
       throw new \Exception("Privateness daemon is not running");
@@ -58,7 +57,7 @@ class Ness {
     curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
 
     $output = curl_exec($ch);
-    // var_dump($responce, $output);
+    
     if (empty($output)) {
       throw new \Exception("Privateness daemon is not running");
     }
@@ -66,6 +65,48 @@ class Ness {
     $output = json_decode($output, true);
 
     return $output['addresses'][0];
+  }  
+
+
+
+  public function createAddrDebug() 
+  {
+    $responce = file_get_contents($this->prefix . $this->host . ":" . $this->port . "/api/v1/csrf");
+
+    if (empty($responce)) {
+      echo "Privateness daemon is not running\n";
+    }
+
+    $responce = json_decode($responce, true);
+    $token = $responce["csrf_token"];
+
+    $fields = [
+      'id' => $this->wallet_id,
+      'num' => 1,
+      'password' => $this->password
+    ];
+
+    $ch = curl_init($this->prefix . $this->host . ":" . $this->port . "/api/v1/wallet/newAddress");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-CSRF-Token: '.$token));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+
+    $output = curl_exec($ch);
+    print_r($output);
+
+    if (empty($output)) {
+      echo "Empty output.\n";
+    } else {
+      echo $output;
+      $output = json_decode($output, true);
+
+      if (false !== $output) {
+        print_r($output);
+      } else {
+        echo "Output can not be decoded.\n";
+      }
+    }
   }  
   
   public function getAddress(string $addr): array 
