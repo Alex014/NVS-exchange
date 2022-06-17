@@ -83,7 +83,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
             You cant pay it here <a href="/slot.php?slot=<?=$slot['slot_id']?>"><?=$slot['slot_id']?></a>
         </div>
         <?php endif; ?>
-        <button type="submit" class="btn btn-primary">Create exchange token</button>
+        <button type="submit" class="btn btn-primary">Create payment slot</button>
         </form>
     
     </div>

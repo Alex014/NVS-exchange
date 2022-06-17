@@ -109,7 +109,7 @@ $slot = $slots->showSlot($_GET['slot']);
                 <h2>
                     <b><?= $addr['descr']?>:</b> Send <?=  $addr['min_sum'] ?> <?=$name?> to
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-line me-2"><?=  $addr['addr'] ?></span> <button onclick="copy('<?=  $addr['addr'] ?>','#copy_button')" id="copy_button" class="btn btn-sm btn-success copy-button">Copy</button>
+                        <span class="text-line me-2"><?=  $addr['addr'] ?></span> <button onclick="copy('<?=  $addr['addr'] ?>','#copy_button_<?=$name?>')" id="copy_button_<?=$name?>" class="btn btn-sm btn-success copy-button">Copy</button>
                     </div>
                 </h2>
                 <?php endforeach; ?>
@@ -120,7 +120,8 @@ $slot = $slots->showSlot($_GET['slot']);
                 <?php if(isset($result)): ?>
                     <?php if($result): ?>
                         <div class="alert alert-success" role="alert">
-                            Confirmed.
+                            Payment confirmed.<br/>
+                            NVS created !
                         </div>
                     <?php else: ?>
 
@@ -131,8 +132,7 @@ $slot = $slots->showSlot($_GET['slot']);
                 </form>
 
                 <div class="alert alert-danger" role="alert">
-                    Transaction not confirmed yet. <br/>
-                    Wait ~ 10 min
+                    Transaction not confirmed yet.
                 </div>
                     <?php endif; ?>
                 <?php else: ?>

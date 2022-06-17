@@ -10,16 +10,16 @@ namespace lib;
 class Ness {
   private $host = '';
   private $port = 6460;
-  private $wallet_id = '';
-  private $password = '';
+  private $main_wallet_id = '';
+  private $wallets;
   private $prefix = '';
 
-  public function __construct(string $host, int $port, string $wallet_id, string $password, $prefix = 'http://')
+  public function __construct(string $host, int $port, array $wallets, string $main_wallet_id, $prefix = 'http://')
   {
     $this->host = $host;
     $this->port = $port;
-    $this->wallet_id = $wallet_id;
-    $this->password = $password;
+    $this->main_wallet_id = $main_wallet_id;
+    $this->wallets = $wallets;
     $this->prefix = $prefix;
   }
 
@@ -30,6 +30,39 @@ class Ness {
       return json_decode($responce, true);
     } else {
       return false;
+    }
+  }
+
+  public function getMainWallet(): string {
+    return $this->main_wallet_id;
+  }
+
+  public function setMainWallet(string $wallet_name) {
+    $this->main_wallet_id = $wallet_name;
+  }
+
+  public function listWallets(): array {
+    return $this->wallets;
+  }
+
+  public function listAddresses(string $wallet_id = '') {
+    if ('' === $wallet_id) {
+      $wallet_id = $this->main_wallet_id;
+    }
+
+    $responce = file_get_contents($this->prefix . $this->host . ":" . $this->port . "/api/v1/wallet/balance?id=" . $wallet_id);
+    $responce = json_decode($responce, true);
+    
+    return $responce['addresses'];
+  }
+
+  public function findEmptyAddress() {
+    foreach ($this->wallets as $wallet => $password) {
+      foreach ($this->listAddresses($wallet) as $address => $balance) {
+        if (0 == $balance['confirmed']['coins'] && 0 == $balance['confirmed']['hours']) {
+          return $address;
+        }
+      }
     }
   }
 
@@ -66,8 +99,6 @@ class Ness {
 
     return $output['addresses'][0];
   }  
-
-
 
   public function createAddrDebug() 
   {
@@ -127,6 +158,28 @@ class Ness {
   public function checkAddress(string $addr): bool 
   {
     return isset($this->getAddress($addr)['addresses'][$addr]);
+  }
+
+  public function checkAddressCoins(string $addr): float 
+  {
+    $address = $this->getAddress($addr)['addresses'][$addr];
+
+    if(!empty($address)) {
+      return 0;
+    } else {
+      return $address['confirmed']['coins'];
+    }
+  }
+
+  public function checkAddressHours(string $addr): float 
+  {
+    $address = $this->getAddress($addr)['addresses'][$addr];
+
+    if(!empty($address)) {
+      return 0;
+    } else {
+      return $address['confirmed']['hours'];
+    }
   }
 
   public function checkLastRecieved(string $from_addr, string $to_addr): bool

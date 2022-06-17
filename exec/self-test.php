@@ -25,7 +25,7 @@ Emercoin::$username = $config['emercoin']['user'];
 Emercoin::$password = $config['emercoin']['password'];
 
 $ness = $config['ness'];
-$Ness = new Ness($ness['host'], (int) $ness['port'], $ness['wallet_id'], $ness['password'], $ness['prefix']);
+$Ness = new Ness($ness['host'], (int) $ness['port'], $ness['wallets'], $ness['main_wallet_id'], $ness['prefix']);
 
 
 try {
@@ -62,6 +62,19 @@ if (!isset($err)) {
 
 if ($Ness->health()) {
     echo "\nNESS - OK\n";
+
+    foreach ($Ness->listWallets() as $wallet => $password) {
+        $addresses = $Ness->listAddresses($wallet);
+
+        echo $wallet . ": " . count($addresses) . " addresses\n";
+
+        if ($argc > 1 && '-debug' === $argv[1]) {
+            print_r($addresses);
+        }
+    }
+
+    echo "First empty address: " . $Ness->findEmptyAddress() . "\n";
+
 } else {
     echo "\nNESS - FAILED\n";
 }

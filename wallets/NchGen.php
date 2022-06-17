@@ -6,7 +6,7 @@ require_once __DIR__ . '/../lib/Ness.php';
 use lib\IWallet;
 use lib\Ness as Privateness;
 
-class NCH implements IWallet {
+class NchGen implements IWallet {
 
     private $min_sum = 1;
     private $ness;
@@ -40,7 +40,7 @@ class NCH implements IWallet {
 
     public function generateAddress()
     {
-        return $this->ness->createAddr();
+        return $this->ness->findEmptyAddress();
     }
 
     public function getRecievedByAddress(string $addr)

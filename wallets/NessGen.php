@@ -6,9 +6,9 @@ require_once __DIR__ . '/../lib/Ness.php';
 use lib\IWallet;
 use lib\Ness as Privateness;
 
-class NCH implements IWallet {
+class NessGen implements IWallet {
 
-    private $min_sum = 1;
+    private $min_sum = 0.1;
     private $ness;
 
     public function __construct()
@@ -30,22 +30,22 @@ class NCH implements IWallet {
 
     public function getWalletName(): string
     {
-        return 'NCH';
+        return 'NESS';
     }
 
     public function getWalletDescription(): string
     {
-        return 'Privateness Coin-Hours';
+        return 'Privateness';
     }
 
     public function generateAddress()
     {
-        return $this->ness->createAddr();
+        return $this->ness->findEmptyAddress();
     }
 
     public function getRecievedByAddress(string $addr)
     {
-        return $this->ness->getAddress($addr)['confirmed']['hours'];
+        return $this->ness->getAddress($addr)['confirmed']['coins'];
     }
 
     public function checkRecievedByAddress(string $addr)

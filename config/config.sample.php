@@ -4,8 +4,11 @@ return [
     'ness' => [
         'host' => 'localhost',
         'port' => '6660',
-        'wallet_id' => '',
-        'password' => '',
+        'wallets' => [
+            '2021_12_02_fdgh.wlt' => '123456789$',
+            '2022_06_15_fada.wlt' => 'qwerty'
+        ],
+        'main_wallet_id' => '2021_12_02_fdgh.wlt',
         'prefix' => 'http://'
     ],
     'emercoin' => [

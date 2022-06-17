@@ -5,8 +5,8 @@ require_once __DIR__ . '/../lib/Slots.php';
 require_once __DIR__ . '/../lib/DB.php';
 require_once __DIR__ . '/../lib/Emercoin.php';
 require_once __DIR__ . '/../wallets/Emercoin.php';
-require_once __DIR__ . '/../wallets/Ness.php';
-require_once __DIR__ . '/../wallets/NCH.php';
+require_once __DIR__ . '/../wallets/NessGen.php';
+require_once __DIR__ . '/../wallets/NchGen.php';
 
 ini_set('display_errors', true);
 
@@ -14,8 +14,8 @@ use lib\Stots;
 use lib\DB;
 use lib\Emercoin;
 use wallets\Emercoin as EMC;
-use wallets\NCH;
-use wallets\Ness;
+use wallets\NchGen;
+use wallets\NessGen;
 
 class Container {
     public static function createSlots() {
@@ -32,9 +32,9 @@ class Container {
         
         $Emercoin = new EMC();
         $Emercoin->setMinSum($config['exchange']['min_sum']['emc']);
-        $Ness = new Ness();
+        $Ness = new NessGen();
         $Ness->setMinSum($config['exchange']['min_sum']['ness']);
-        $NCH = new NCH();
+        $NCH = new NchGen();
         $NCH->setMinSum($config['exchange']['min_sum']['nch']);
         
         return new Stots($db, $Emercoin, $Ness, $NCH);
