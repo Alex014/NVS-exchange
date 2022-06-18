@@ -28,11 +28,15 @@ class Stots {
         $addr = [];
 
         foreach ($this->wallets as $wallet) {
-            $addr[$wallet->getWalletName()] = [
-                'addr' => $wallet->generateAddress(),
-                'descr' => $wallet->getWalletDescription(),
-                'min_sum' => $wallet->getMinSum()
-            ];
+            $genAddress = $wallet->generateAddress();
+
+            if (false !== $genAddress) {
+                $addr[$wallet->getWalletName()] = [
+                    'addr' => $genAddress,
+                    'descr' => $wallet->getWalletDescription(),
+                    'min_sum' => $wallet->getMinSum()
+                ];
+            }
         }
 
         $addr = json_encode($addr);
