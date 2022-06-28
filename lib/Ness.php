@@ -78,7 +78,7 @@ class Ness {
     $token = $responce["csrf_token"];
 
     $fields = [
-      'id' => $this->wallet_id,
+      'id' => $this->main_wallet_id,
       'num' => 1,
       'password' => $this->password
     ];
@@ -112,7 +112,7 @@ class Ness {
     $token = $responce["csrf_token"];
 
     $fields = [
-      'id' => $this->wallet_id,
+      'id' => $this->main_wallet_id,
       'num' => 1,
       'password' => $this->password
     ];
@@ -210,7 +210,7 @@ class Ness {
 
     $responce = json_decode($responce, true);
     $token = $responce["csrf_token"];
-    $wallet_id = $this->wallet_id;
+    $wallet_id = $this->main_wallet_id;
     $password = $this->password;
 
     $body = <<<BODY
