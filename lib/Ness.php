@@ -80,7 +80,7 @@ class Ness {
     $fields = [
       'id' => $this->main_wallet_id,
       'num' => 1,
-      'password' => $this->password
+      'password' => $this->wallets[$this->main_wallet_id]
     ];
 
     $ch = curl_init($this->prefix . $this->host . ":" . $this->port . "/api/v1/wallet/newAddress");
@@ -114,7 +114,7 @@ class Ness {
     $fields = [
       'id' => $this->main_wallet_id,
       'num' => 1,
-      'password' => $this->password
+      'password' => $this->wallets[$this->main_wallet_id]
     ];
 
     $ch = curl_init($this->prefix . $this->host . ":" . $this->port . "/api/v1/wallet/newAddress");
@@ -211,7 +211,7 @@ class Ness {
     $responce = json_decode($responce, true);
     $token = $responce["csrf_token"];
     $wallet_id = $this->main_wallet_id;
-    $password = $this->password;
+    $password = $this->wallets[$this->main_wallet_id];
 
     $body = <<<BODY
     {
