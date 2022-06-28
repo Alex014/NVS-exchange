@@ -14,7 +14,7 @@ if (!file_exists(__DIR__ . '/../config/config.php')) {
 $config = require __DIR__ . '/../config/config.php';
 
 $ness = $config['ness'];
-$Ness = new Ness($ness['host'], (int) $ness['port'], $ness['wallet_id'], $ness['password'], $ness['prefix']);
+$Ness = new Ness($ness['host'], (int) $ness['port'], $ness['wallets'], $ness['main_wallet_id'], $ness['prefix']);
 
 if (false !== $Ness->health()) {
     $res = $Ness->createAddrDebug();
