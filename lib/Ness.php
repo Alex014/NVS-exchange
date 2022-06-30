@@ -222,7 +222,7 @@ class Ness {
         "password": "$password",
         "addresses": ["$from_addr"],
         "to": [{
-            "address": "$to_addr",
+            "address": "$to_addr",  
             "coins": "$coins",
             "hours": "$hours"
         }]
