@@ -21,7 +21,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
         'pay_address' => $pay_address 
     ];
 
-    if (!empty($exForm->locateSlot($fields))) {
+    if (empty($exForm->locateSlot($fields))) {
         $error = 'nvs';
     } else {
         $last_slot_time = $exForm->getSlot()->lastSlotTime();
@@ -33,7 +33,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
 
         $slot = $exForm->findSlot($fields);
 
-        if (!empty($slot)) {
+        if (empty($slot)) {
             header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
             $error = 'db';
         } else {
