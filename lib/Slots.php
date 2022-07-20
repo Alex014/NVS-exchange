@@ -8,7 +8,7 @@ use \lib\iSlotDatabase;
 use \lib\Emercoin;
 use \lib\IWallet;
 
-class Stots {
+class Slots {
 
     private $db;
     private $wallets;
@@ -59,17 +59,22 @@ class Stots {
         return $slot;
     }
 
-    public function findSlot(string $name)
+    public function findSlot(string $name): array
     {
-        return $this->db->findSlot($name);
+        $result = $this->db->findSlot($name);
+        if (false === $result) {
+            return [];
+        } else {
+            return $result;
+        }
     }
 
-    public function locateSlot(string $name)
+    public function locateSlot(string $name): array
     {
         try {
             return Emercoin::name_show($name);
         } catch (\Exception $e) {
-            return false;
+            return [];
         }
     }
 
@@ -106,7 +111,7 @@ class Stots {
             $wname = $wallet->getWalletName();
             if (isset($addrs[$wname]) && $wallet->checkRecievedByAddress($addrs[$wname]['addr'])) {
                 Emercoin::name_new($slot['name'], $slot['value'], $this->days);
-                $this->db->setSlotPayed($slot_id);
+                $this->db->setSlotPayed($slot_id);  
                 return true;
             }
         }

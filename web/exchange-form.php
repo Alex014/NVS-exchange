@@ -1,44 +1,49 @@
 <?php
 ini_set('display_errors', true);
 require __DIR__ . '/../lib/Container.php';
+require __DIR__ . '/../modules/ExchangeForm.php';
 
 use lib\Container;
+use modules\ExchangeForm;
 
 $error = false;
 
-$config = require __DIR__ . '/../config/config.php';
-$fdb = $config['db'];
+$exForm = Container::createExchangeForm();
 
-if (!empty($_POST['name']) && !empty($_POST['value'])) {
-    $name = $_POST['name'];
-    $value = $_POST['value'];
+$active = $exForm->pingExchangeForm();
 
-    $slots = Container::createSlots();
+if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
+    $address = $_POST['address'];
+    $pay_address = $_POST['pay_address'];
 
-    if (!empty($slots->locateSlot($_POST['name']))) {
+    $fields = [
+        'address' => $address,
+        'pay_address' => $pay_address 
+    ];
+
+    if (!empty($exForm->locateSlot($fields))) {
         $error = 'nvs';
     } else {
-        $last_slot_time = $slots->lastSlotTime();
+        $last_slot_time = $exForm->getSlot()->lastSlotTime();
 
-        if ((time() - $slots->lastSlotTime()) < 30) {
+        if ((time() - $last_slot_time) < 30) {
             header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
             die('Time restriction (30 sec)');
         }
 
-        $slot = $slots->findSlot($_POST['name']);
+        $slot = $exForm->findSlot($fields);
 
         if (!empty($slot)) {
             header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
             $error = 'db';
         } else {
-            $slot_id = $slots->createSlot($_POST['name'], $_POST['value']);
-            header('location: /slot.php?slot=' . $slot_id );
+            $slot_id = $exForm->createSlot($fields);
+            header('location: /exchange-form-slot.php?slot=' . $slot_id );
         }
-
     }
 } else {
-    $name = '';
-    $value = '';
+    $address = '';
+    $pay_address = '';
 }
 ?>
 <!doctype html>
@@ -63,27 +68,30 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">BUY Name-Value record</a>
+                <a class="nav-link"href="/">BUY Name-Value record</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/exchange-form.php">Privateness V1 - V2 exchange</a>
+                <a class="nav-link active" aria-current="page"  href="#">Privateness V1 - V2 exchange</a>
             </li>
         </ul>
 
         <br>
 
-        <form method="POST">
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="name" class="form-control" id="name" name="name" value="<?=$name?>" placeholder="Name" required>
-            <div id="nameHelp" class="form-text">Emercoin NVS name</div>
-        </div>
+        <?php if ($active): ?>
+        
+        <form action="/token.php" method="GET">
 
         <div class="mb-3">
-            <label for="value" class="form-label">Value</label>
-            <textarea name="value" id="value" class="form-control" cols="30" rows="10" placeholder="Value" required><?=$value?></textarea>
-            <div id="valueHelp" class="form-text">Emercoin NVS value</div>
+            <label for="address" class="form-label">Your token address</label>
+            <input type="text" class="form-control" id="address" name="address" value="<?=$address?>"  placeholder="your_address_address-v1-with-coinhours" required>
+            <div class="form-text">The address in privateness v1 network, where you have coin-hours.</div>
         </div>
+        <div class="mb-3">
+            <label for="pay_address" class="form-label">Your pay_address payment address</label>
+            <input type="text" class="form-control" id="token" name="pay_address" value="<?=$pay_address?>"  placeholder="your_address_to-recieve-coins-v2" required>
+            <div class="form-text">The address in privateness v2 network, to recieve coins.</div>
+        </div>
+
         <?php if ('nvs' === $error): ?>
         <div class="alert alert-danger" role="alert">
             NVS with name <b><?=htmlentities($name)?></b> olready exist.
@@ -95,7 +103,13 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
         </div>
         <?php endif; ?>
         <button type="submit" class="btn btn-primary">Create payment slot</button>
+
         </form>
+        <?php else: ?>
+        <div class="alert alert-danger" role="alert">
+        Privateness V1 - V2 exchange found, but it is inactive (possible server failure).
+        </div>
+        <?php endif; ?>
     
     </div>
   </div>

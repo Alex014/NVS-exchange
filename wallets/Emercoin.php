@@ -2,6 +2,7 @@
 namespace wallets;
 
 require_once __DIR__ . '/../lib/Emercoin.php';
+require_once __DIR__ . '/../lib/IWallet.php';
 
 use lib\IWallet;
 use lib\Emercoin as Emc;
@@ -54,5 +55,19 @@ class Emercoin implements IWallet {
     public function checkRecievedByAddress(string $addr)
     {
         return $this->min_sum <= $this->getRecievedByAddress($addr);
+    }
+
+    public function getNVS(string $name): array
+    {
+        try {
+            return Emc::name_show($name);
+        } catch (\Exception $ex) {
+            return [];
+        }
+    }
+
+    public function listNVS(string $regexp): array
+    {
+        return Emc::name_filter($regexp);
     }
 }
