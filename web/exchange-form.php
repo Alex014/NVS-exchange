@@ -79,7 +79,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
 
         <?php if ($active): ?>
         
-        <form action="/exchange-form-slot.php" method="GET">
+        <form method="POST">
 
         <div class="mb-3">
             <label for="address" class="form-label">Your token address</label>
