@@ -119,8 +119,6 @@ if ('generated' === $status) {
                     <button type="submit" class="btn btn-primary">Confirm money send</button>
                 </form>
 
-                <?php endif; ?>
-
                 <?php foreach ($slot['addr'] as $name => $addr): ?>
                 <h2>
                     <b><?= $addr['descr']?>:</b> Send <?=  $addr['min_sum'] ?> <?=$name?> to
@@ -129,6 +127,8 @@ if ('generated' === $status) {
                     </div>
                 </h2>
                 <?php endforeach; ?>
+
+                <?php endif; ?>
 
                 <h3>Address: <?= htmlentities($slot['address']) ?></h3>
                 <h3>Payment address: <?= nl2br(htmlentities($slot['pay_address'])) ?></h3>
@@ -169,8 +169,15 @@ if ('generated' === $status) {
                 </div>
                 <p>Your have <b><?=$slot['hours']?></b> HOURS on <b><?=$slot['address']?></b> (v1)</p>
                 <p>Transmit any ammount (0.000001) 
-                    from <b><?=$slot['address']?></b> (v2) 
-                    to <b><?=$slot['gen_address']?></b> (v2) 
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-line me-2">From <b><?=$slot['address']?></b>  (v2) </span> <button onclick="copy('<?=$slot['address']?>','#copy_button_<?=$slot['address']?>')" id="copy_button_<?=$slot['address']?>" class="btn btn-sm btn-success copy-button">Copy</button>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-line me-2">To <b><?=$slot['gen_address']?></b> (v2) </span> <button onclick="copy('<?=  $slot['gen_address'] ?>','#copy_button_<?=  $slot['gen_address'] ?>')" id="copy_button_<?=  $slot['gen_address'] ?>" class="btn btn-sm btn-success copy-button">Copy</button>
+                    </div>
+
                     and you will recieve <?=$slot['recieve']?> NESS on your address <b><?=$slot['pay_address']?></b> (v2) </p>
 
                 <?php elseif('done' === $status): ?>

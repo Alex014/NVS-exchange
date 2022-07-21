@@ -63,7 +63,7 @@ class ExchangeForm extends BaseModule {
 
         if ('payed' === strtolower($slot['status'])) {
             $token = $this->loadToken($fields['address'], $fields['pay_address']);
-            var_dump($token);
+            // var_dump($token);
             switch (strtolower($token['status'])) {
                 case 'activated':
                     return $fields + [
@@ -78,7 +78,7 @@ class ExchangeForm extends BaseModule {
                         'status' => 'activated'
                     ];
                 break;
-                case 'done':
+                case 'payed':
                     return $fields + [
                         'id' => $slot['id'],
                         'addr' => $slot['addr'],
