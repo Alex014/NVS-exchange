@@ -20,7 +20,7 @@ class ExchangeForm extends BaseModule {
     {
         $this->exchange_form_decoder = $exchange_form_decoder;
 
-        parent::__construct($slot,  $this->exchange_form_decoder);
+        parent::__construct($slot,  $exchange_form_token_decoder);
         
         $nvs = $emc->getNVS($exchange_form_decoder->encodeName([]));
 
@@ -63,10 +63,12 @@ class ExchangeForm extends BaseModule {
 
         if ('payed' === strtolower($slot['status'])) {
             $token = $this->loadToken($fields['address'], $fields['pay_address']);
-
+            var_dump($token);
             switch (strtolower($token['status'])) {
                 case 'activated':
                     return $fields + [
+                        'id' => $slot['id'],
+                        'addr' => $slot['addr'],
                         'name' => $slot['name'],
                         'address' => $token['address'],
                         'pay_address' => $token['pay_address'],
@@ -78,6 +80,8 @@ class ExchangeForm extends BaseModule {
                 break;
                 case 'done':
                     return $fields + [
+                        'id' => $slot['id'],
+                        'addr' => $slot['addr'],
                         'name' => $slot['name'],
                         'address' => $token['address'],
                         'pay_address' => $token['pay_address'],
@@ -89,6 +93,8 @@ class ExchangeForm extends BaseModule {
                 break;
                 case 'error':
                     return $fields + [
+                        'id' => $slot['id'],
+                        'addr' => $slot['addr'],
                         'name' => $slot['name'],
                         'address' => $token['address'],
                         'pay_address' => $token['pay_address'],
@@ -101,12 +107,16 @@ class ExchangeForm extends BaseModule {
                 break;
                 default:
                     return $fields + [
+                        'id' => $slot['id'],
+                        'addr' => $slot['addr'],
                         'name' => $slot['name'],
                         'status' => $slot['status']
                     ];
             }
         } else {
             return $fields + [
+                'id' => $slot['id'],
+                'addr' => $slot['addr'],
                 'name' => $slot['name'],
                 'status' => $slot['status']
             ];

@@ -10,14 +10,14 @@ class ExchangeFormTokenDecoder implements iDecoder {
 
     public function encodeName(array $fields): string
     {
-        return "worm:token:$fields[address]:$fields[pay_address]";
+        return "worm:token:ness_exchange_v1_v2:$fields[address]:$fields[pay_address]";
     }
 
     public function encodeValue(array $fields): string
     {
         return <<<WORM
 <worm>
-    <token type="ness-exchange-v1-v2" title="$fields[title]" url="$fields[url]"/>
+    <token type="ness-exchange-v1-v2" address="$fields[address]" pay_address="$fields[pay_address]"/>
 </worm> 
 WORM;
     }
@@ -28,8 +28,8 @@ WORM;
         $xmlString = preg_replace('/”/i', '"', $xmlString);
         $xmlObject = simplexml_load_string($xmlString);
 
-        $address = (string) $xmlObject->slot['address'];
-        $pay_address = (string) $xmlObject->slot['pay_address'];
+        $address = (string) $xmlObject->token['address'];
+        $pay_address = (string) $xmlObject->token['pay_address'];
 
         return [
             "address" => $address,
