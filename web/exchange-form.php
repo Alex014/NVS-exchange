@@ -21,7 +21,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
         'pay_address' => $pay_address 
     ];
 
-    if (empty($exForm->locateSlot($fields))) {
+    if (!empty($exForm->locateSlot($fields))) {
         $error = 'nvs';
     } else {
         $last_slot_time = $exForm->getSlot()->lastSlotTime();
@@ -33,9 +33,10 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
 
         $slot = $exForm->findSlot($fields);
 
-        if (empty($slot)) {
+        if (!empty($slot)) {
             header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
             $error = 'db';
+            $slot_id = $slot['id'];
         } else {
             $slot_id = $exForm->createSlot($fields);
             header('location: /exchange-form-slot.php?slot=' . $slot_id );
@@ -99,7 +100,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
         <?php elseif ('db' === $error): ?>
         <div class="alert alert-danger" role="alert">
             Slot with address <?=$pay_address?> and payment address <?=$pay_address?> olready exist. <br/>
-            You cant pay it here <a href="/slot.php?slot=<?=$slot['slot_id']?>"><?=$slot['slot_id']?></a>
+            You cant pay it here <a href="/slot.php?slot=<?=$slot_id?>"><?=$slot['name']?></a>
         </div>
         <?php endif; ?>
         <button type="submit" class="btn btn-primary">Create payment slot</button>
