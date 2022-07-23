@@ -91,6 +91,20 @@ class ExchangeForm extends BaseModule {
                         'status' => 'done'
                     ];
                 break;
+                case 'nofunds':
+                    return $fields + [
+                        'id' => $slot['id'],
+                        'addr' => $slot['addr'],
+                        'name' => $slot['name'],
+                        'address' => $token['address'],
+                        'pay_address' => $token['pay_address'],
+                        'gen_address' => $token['gen_address'],
+                        'hours' => $token['hours'],
+                        'recieve' => $token['recieve'],
+                        'error' => "The exchange is out of funds =( =( =( ",
+                        'status' => 'error'
+                    ];
+                break;
                 case 'error':
                     return $fields + [
                         'id' => $slot['id'],
