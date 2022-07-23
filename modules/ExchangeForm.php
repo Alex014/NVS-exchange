@@ -13,8 +13,8 @@ use wallets\Emercoin;
 
 class ExchangeForm extends BaseModule {
 
-    private string $url;
-    private iDecoder $exchange_form_decoder;
+    private $url;
+    private $exchange_form_decoder;
 
     public function __construct(Slots $slot, Emercoin $emc, iDecoder $exchange_form_decoder, iDecoder $exchange_form_token_decoder) 
     {

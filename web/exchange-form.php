@@ -95,11 +95,11 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
 
         <?php if ('nvs' === $error): ?>
         <div class="alert alert-danger" role="alert">
-            NVS record with address <?=$pay_address?> and payment address <?=$pay_address?> olready exist.
+            NVS record with address <?=$address?> and payment address <?=$pay_address?> olready exist.
         </div>
         <?php elseif ('db' === $error): ?>
         <div class="alert alert-danger" role="alert">
-            Slot with address <?=$pay_address?> and payment address <?=$pay_address?> olready exist. <br/>
+            Slot with address <?=$address?> and payment address <?=$pay_address?> olready exist. <br/>
             You cant pay it here <a href="/slot.php?slot=<?=$slot_id?>"><?=$slot['name']?></a>
         </div>
         <?php endif; ?>

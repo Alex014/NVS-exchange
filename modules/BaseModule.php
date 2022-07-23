@@ -13,8 +13,8 @@ use lib\Slots;
 class BaseModule implements iModule
 {
 
-    private iDecoder $decoder;
-    private Slots $slot;
+    private $decoder;
+    private $slot;
 
     public function __construct(Slots $slot, iDecoder $decoder)
     {
