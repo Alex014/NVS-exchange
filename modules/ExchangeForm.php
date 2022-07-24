@@ -129,7 +129,9 @@ class ExchangeForm extends BaseModule {
                         'gen_address' => $token['gen_address'],
                         'hours' => $token['hours'],
                         'recieve' => $token['recieve'],
-                        'error' => "Insufficient funds on exchange to pay your token!\n Wait for funds refill",
+                        'error' => "Insufficient funds on exchange to pay your token!"
+                        . "\n $token[recieve] NESS to $token[pay_address]"
+                        . "\n Wait for funds refill",
                         'status' => 'error'
                     ];
                 break;
