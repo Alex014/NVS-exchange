@@ -159,7 +159,8 @@ if ('generated' === $status) {
                 Payment confirmed.<br/>
                 NVS created !
                 <br/><br/>
-                Waiting the exchange to accept the token
+                Waiting the exchange to accept the token<br/>
+                This can take up to 10 min ...
                 </div>
 
                 <?php elseif('activated' === $status): ?>
