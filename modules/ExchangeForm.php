@@ -119,6 +119,20 @@ class ExchangeForm extends BaseModule {
                         'status' => 'error'
                     ];
                 break;
+                case 'nofunds':
+                    return $fields + [
+                        'id' => $slot['id'],
+                        'addr' => $slot['addr'],
+                        'name' => $slot['name'],
+                        'address' => $token['address'],
+                        'pay_address' => $token['pay_address'],
+                        'gen_address' => $token['gen_address'],
+                        'hours' => $token['hours'],
+                        'recieve' => $token['recieve'],
+                        'error' => "Insufficient funds on exchange to pay your token!\n Wait for funds refill",
+                        'status' => 'error'
+                    ];
+                break;
                 default:
                     return $fields + [
                         'id' => $slot['id'],
