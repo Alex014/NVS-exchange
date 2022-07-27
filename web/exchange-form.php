@@ -79,6 +79,12 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
         <br>
 
         <?php if ($active): ?>
+
+            <div class="float-start">
+                <form method="GET">
+                    <button type="submit" class="btn btn-primary">Reload</button>
+                </form>
+            </div>
         
         <form method="POST">
 

@@ -155,6 +155,12 @@ if ('generated' === $status) {
 
                 <?php elseif('payed' === $status): ?>
 
+                <div class="float-start">
+                <form method="GET">
+                    <button type="submit" class="btn btn-primary">Reload</button>
+                </form>
+                </div>
+
                 <div class="alert alert-success" role="alert">
                 Payment confirmed.<br/>
                 NVS created !
@@ -163,7 +169,19 @@ if ('generated' === $status) {
                 This can take up to 10 min ...
                 </div>
 
+                <div class="float-start">
+                <form method="GET">
+                    <button type="submit" class="btn btn-primary">Reload</button>
+                </form>
+                </div>
+
                 <?php elseif('activated' === $status): ?>
+
+                <div class="float-start">
+                <form method="GET">
+                    <button type="submit" class="btn btn-primary">Reload</button>
+                </form>
+                </div>
 
                 <div class="alert alert-success" role="alert">
                 <p>Your token is activated</p>
@@ -180,6 +198,13 @@ if ('generated' === $status) {
                     </div>
 
                     and you will recieve <?=$slot['recieve']?> NESS on your address <b><?=$slot['pay_address']?></b> (v2) </p>
+
+
+                <div class="float-start">
+                <form method="GET">
+                    <button type="submit" class="btn btn-primary">Reload</button>
+                </form>
+                </div>
 
                 <?php elseif('done' === $status): ?>
 
