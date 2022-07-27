@@ -157,6 +157,7 @@ if ('generated' === $status) {
 
                 <div class="float-start">
                 <form method="GET">
+                    <input type="hidden" name="slot" value="<?=$_GET['slot']?>"/>
                     <button type="submit" class="btn btn-primary">Reload</button>
                 </form>
                 </div>
@@ -171,6 +172,7 @@ if ('generated' === $status) {
 
                 <div class="float-start">
                 <form method="GET">
+                    <input type="hidden" name="slot" value="<?=$_GET['slot']?>"/>
                     <button type="submit" class="btn btn-primary">Reload</button>
                 </form>
                 </div>
@@ -179,6 +181,7 @@ if ('generated' === $status) {
 
                 <div class="float-start">
                 <form method="GET">
+                    <input type="hidden" name="slot" value="<?=$_GET['slot']?>"/>
                     <button type="submit" class="btn btn-primary">Reload</button>
                 </form>
                 </div>
@@ -202,6 +205,7 @@ if ('generated' === $status) {
 
                 <div class="float-start">
                 <form method="GET">
+                    <input type="hidden" name="slot" value="<?=$_GET['slot']?>"/>
                     <button type="submit" class="btn btn-primary">Reload</button>
                 </form>
                 </div>
