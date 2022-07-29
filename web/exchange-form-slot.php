@@ -161,9 +161,11 @@ if ('generated' === $status) {
                     <button type="submit" class="btn btn-primary">Reload</button>
                 </form>
                 </div>
+                
+                <br/><br/>
 
                 <div class="alert alert-success" role="alert">
-<b>Payment confirmed.</b><br/><b>NVS created !</b>
+                <b>Payment confirmed.</b><br/><b>NVS created !</b>
                 <br/><br/>
                 Waiting the exchange to accept the token<br/>
                 This can take up to 10 min ...
