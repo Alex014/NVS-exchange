@@ -161,7 +161,7 @@ if ('generated' === $status) {
                     <button type="submit" class="btn btn-primary">Reload</button>
                 </form>
                 </div>
-                
+
                 <br/><br/>
 
                 <div class="alert alert-success" role="alert">
@@ -186,6 +186,8 @@ if ('generated' === $status) {
                     <button type="submit" class="btn btn-primary">Reload</button>
                 </form>
                 </div>
+
+                <br/><br/>
 
                 <div class="alert alert-success" role="alert">
                 <p>Your token is activated</p>
@@ -214,7 +216,7 @@ if ('generated' === $status) {
                 <?php elseif('done' === $status): ?>
 
                 <div class="alert alert-success" role="alert">
-                <p>Your token is payed</p>
+                <p><b>Your token is payed</b></p>
                 </div>
                 <p>Your had <b><?=$slot['hours']?></b> HOURS on <b><?=$slot['address']?></b> (v1)</p>
                 <p>You have been payed <?=$slot['recieve']?> NESS</p>
