@@ -163,8 +163,7 @@ if ('generated' === $status) {
                 </div>
 
                 <div class="alert alert-success" role="alert">
-                Payment confirmed.<br/>
-                NVS created !
+<b>Payment confirmed.</b><br/><b>NVS created !</b>
                 <br/><br/>
                 Waiting the exchange to accept the token<br/>
                 This can take up to 10 min ...
