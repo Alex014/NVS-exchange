@@ -13,7 +13,7 @@ class Slots {
     private $db;
     private $wallets;
     public $min_sum = 0.01;
-    public $days = 100;
+    public $days = 10000;
 
     public function __construct(iSlotDatabase $db, IWallet ...$wallets)
     {
