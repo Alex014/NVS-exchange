@@ -179,9 +179,8 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
      class="form-control" 
      cols="25" 
      rows="6" 
-     placeholder = "A=127.0.0.1|NS=seed1.emercoin.com,seed2.emercoin.com" 
-     required>
-   </textarea>
+     placeholder="A=127.0.0.1|NS=seed1.emercoin.com,seed2.emercoin.com" 
+     required></textarea>
    
    
        <div 
