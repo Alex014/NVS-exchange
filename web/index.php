@@ -102,12 +102,16 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
         }
 
         .form-control {
-            border: 1px solid #367CA5;
+            border: 2px solid #367CA5;
             border-radius: 5px;
             color: #367CA5;
-            outline-color: #367CA5;
+            outline-color: skyblue;
             margin-top: 7%;
             margin-left: 50px;
+        }
+        
+        input {
+             padding: 2%;
         }
         
 
@@ -119,7 +123,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
         
         textarea {
            
-           outline-color: #367CA5;
+           outline-color: skyblue;
         }
         
         .alert {
@@ -127,6 +131,10 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
              font-size: 4%;
              font-weight: bold;
              display: none;
+        }
+        
+        .nvs-show-alert, .db-show-alert {
+             display: block;
         }
         
     </style>
@@ -198,36 +206,38 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
 
 <!-- Alert Messages are hidden in CSS by default -->
 
+
 <?php if ('nvs' === $error): ?>
 
-          <div 
-            class="alert alert-danger"
-            role="alert">
-            NVS with the name
-            <b><?=htmlentities($name)?></b>    
-              Already exist.
-          </div><br>
+    <div class="alert alert-danger
+     <?php if ('nvs' === $error) 
+      echo 'nvs-show-alert'; ?>" 
+        role="alert">
+        
+        NVS with the name 
+        <b><?=htmlentities($name)?></b>     
+        Already exists. 
+    </div><br>
+    
+<?php elseif ('db' === $error): ?>
 
-
-  <?php elseif ('db' === $error): ?>
-
-     <div 
-      class="alert alert-danger"
-      role="alert">
-      Slot with the name
-            <b><?=htmlentities($name)?></b> 
-            Already exist.
-            <br>
-            You can't pay it here!
-
-            <a 
-             href="/slot.php?slot=<?=$slot['slot_id']?>">
-             <?=$slot['slot_id']?>
-            </a>
-      </div>
-
-          <?php endif; ?>
-
+    <div
+     class="alert alert-danger 
+     <?php if ('db' === $error) echo 'db-show-alert'; ?>" 
+        role="alert">
+        
+        Slot with the name 
+        <b><?=htmlentities($name)?></b>  
+        Already exists. 
+        <br> 
+        You can't pay it here! 
+  
+        <a  
+            href="/slot.php?slot=<?=$slot['slot_id']?>"> 
+            <?=$slot['slot_id']?> 
+        </a> 
+    </div> 
+<?php endif; ?>
         </div>
     </div>
 </div>

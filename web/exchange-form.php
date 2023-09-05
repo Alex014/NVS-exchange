@@ -75,11 +75,13 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
             background-color: #1B4F73;
             padding: 10px;
             border-radius: 5px;
+            text-align: center;
         }
 
         .nav-link {
             color: white;
             font-size: 80%;
+            
         }
         
         li {
@@ -101,6 +103,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
             border-radius: 5px;
             color: #367CA5;
             outline-color: skyblue;
+            
         }
 
         .form-text {
@@ -109,12 +112,17 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
         }
 
         .alert {
-            background-color: #FF5A5A;
-            color: white;
+            font-weight: bold;
+            color: red;
             border-radius: 5px;
             padding: 10px;
             margin-top: 10px;
+            font-size: 0.3em;
             display: none;
+        }
+        
+        .nvs-show-alert, .db-show-alert, .server-failure {
+             display: block;
         }
 
         .btn-primary {
@@ -214,36 +222,28 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
       <!-- Alert Messages Are Hidden in CSS By Default -->
                     
 <?php if ('nvs' === $error): ?>
-    <div class="alert" role="alert">
-      NVS record with address 
-      <?=$address?> and payment address 
-      <?=$pay_address?> already exists.
-     </div>
-              
-              
- <?php elseif ('db' === $error): ?>
-    <div class="alert" role="alert">
-      Slot with address <?=$address?> 
-      and payment address <?=$pay_address?> already exists.<br>
-      You can't pay it here 
-      <a href="/slot.php?slot=<?=$slot_id?>"><?=$slot['name']?>
-      </a>
-     </div>
-                    
- 
- <?php endif; ?>
-    <button type="submit" 
-            class="btn btn-primary">
-            Create Payment Slot
-    </button>
+    <div class="alert <?php if ('nvs' === $error) echo 'nvs-show-alert'; ?>" role="alert">
+        NVS record with address 
+        <?=$address?> and payment address 
+        <?=$pay_address?> already exists.
+    </div>
+    
+<?php elseif ('db' === $error): ?>
+    <div class="alert <?php if ('db' === $error) echo 'db-show-alert'; ?>" role="alert">
+        Slot with address <?=$address?> 
+        and payment address <?=$pay_address?> already exists.<br>
+        You can't pay it here 
+        <a href="/slot.php?slot=<?=$slot_id?>"><?=$slot['name']?></a>
+    </div>
+    
+<?php else: ?> 
+<div class="alert <?php if (true): ?>server-failure<?php endif; ?>" role="alert"> Privateness V1 - V2 exchange found, but it is inactive (possible server failure)!
+</div>
+<?php endif; ?>
+    
+<button type="submit" class="btn btn-primary">Create Payment Slot
+</button>
 </form>
-
-
-    <?php else: ?>
-      <div class="alert" role="alert">
-         Privateness V1 - V2 exchange found, but it is inactive (possible server failure).
-      </div>
-            <?php endif; ?>
         </div>
     </div>
 </div>
