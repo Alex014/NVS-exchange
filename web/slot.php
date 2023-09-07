@@ -134,6 +134,15 @@ $slot = $slots->showSlot($_GET['slot']);
 
         .text-line {
             text-decoration: underline;
+            color: black;
+            font-style: italic;
+            font-size: 0.8em;
+        }
+        
+        .name, .value {
+             color: black;
+             font-style: italic;
+             font-size: 0.8em;
         }
 
         .btn-primary {
@@ -185,6 +194,34 @@ $slot = $slots->showSlot($_GET['slot']);
              
         }
         
+        .payment-success-msg {
+             color: #5cb85c;
+             font-style: italic;
+             font-weight: bold;
+             display: none;
+        }
+        
+        .tx-not-conf-yet-msg {
+             color: #d9534f;
+             font-style: italic;
+             font-weight: bold;
+             display: none;
+        }
+        
+        .money-send-conf-form,
+        .float-start,
+        .deleting-slot-form {
+             display: none;
+        }
+        
+        .display-payment-conf-nvs-created,
+        .display-money-send-conf-form,
+        .display-tx-not-conf-yet-msg,
+        .display-money-send-conf-form,
+        .display-deleting-slot-form {
+             display: block;
+        }
+        
     </style>
 
     <title>
@@ -233,30 +270,36 @@ $slot = $slots->showSlot($_GET['slot']);
     <?php endforeach; ?>
 
        <h3>NAME: 
-       <?= htmlentities($slot['name']) ?>
+          <span class="name">
+            <?= htmlentities($slot['name']) ?>
+          </span>
+       
        </h3>
        
-       <h3>VALUE: 
-       <?= nl2br(htmlentities($slot['value'])) ?>
+       <h3>VALUE:
+         <span class="value">
+              <?= nl2br(htmlentities($slot['value'])) ?>
+         </span>
        </h3>
 
     <?php if(isset($result)): ?>
         <?php if($result): ?>
             <div 
-              class="alert alert-success"
+              class="payment-success-msg <?php if (isset($result) && $result): ?>display-payment-conf-nvs-created<?php endif; ?>"
               role="alert">
-              Payment confirmed!    
+              Payment confirmed !    
                  <br>
                NVS created !
             </div>
                     
                     
     <?php else: ?>
-<form method="POST">
+<form method="POST" class="money-send-conf-form <?php if (true): ?>display-money-send-conf-form<?php endif; ?>">
       <input 
          type="text" 
          name="check" 
          value=""
+         placeholder="Enter confirmation"
          required 
          />
       
@@ -268,15 +311,16 @@ $slot = $slots->showSlot($_GET['slot']);
 </form>
                     
        <div 
-        class="alert alert-danger"
+        class="tx-not-conf-yet-msg <?php if (true): ?>display-tx-not-conf-yet-msg<?php endif; ?>"
         role="alert">       
-        Transaction not confirmed yet.
+        Transaction not confirmed yet !
        </div>
                     
      <?php endif; ?>
 
        <?php if (!isset($result)): ?>
-           <div class="float-start">
+           <div 
+           class="float-start <?php if (!isset($result)): ?>display-money-send-conf-form<?php endif; ?>">
  <form 
    method="POST"
    class="float-left">
@@ -284,6 +328,7 @@ $slot = $slots->showSlot($_GET['slot']);
     type="text" 
     name="check" 
     value=""
+    placeholder="Enter confirmation"
     required
     />
                   
@@ -295,13 +340,14 @@ $slot = $slots->showSlot($_GET['slot']);
  </form>
 </div><br>
 
-  <div class="float-end">
+  <div class="deleting-slot-form <?php if (!isset($result)): ?>display-deleting-slot-form<?php endif; ?>">
    <form method="POST"
        class="float-right">
        <input 
          type="text" 
          name="delete" 
          value=""
+         placeholder="Enter confirmation"
          required 
          />
         <button 
