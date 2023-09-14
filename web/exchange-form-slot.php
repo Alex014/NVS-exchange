@@ -35,6 +35,17 @@ if (empty($slot)) {
 
 // Set the status based on the slot's status
 $status = strtolower($slot['status']);
+
+if ('generated' === $status) {
+    if (isset($_POST["check"])) {
+        $exForm->getSlot()->processSlot($_GET['slot']);
+        $slot = $exForm->showSlot($_GET['slot']);
+    } elseif (isset($_POST["delete"])) {
+        $exForm->getSlot()->deleteSlot($_GET['slot']);
+        header('location: /');
+        die();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
