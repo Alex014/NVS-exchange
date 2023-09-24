@@ -55,7 +55,63 @@ if ('generated' === $status) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Slot # <?= $slot['id'] ?></title>
     <style>
+        /* Laptops */
+        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+            
+        .btn-primary, .btn-success, .btn-danger, .copy-button {
+           
+           cursor: pointer;
+
+       }
+
+       .btn-primary:hover {
+           background-color: #1F4E79;
+       }
+
+       input[type="text"]:hover {
+            border: 3px solid slateblue;
+            border-radius: 6px;
+             }
+     .btn-success:hover {
+
+            background-color: chartreuse;
+                   }
+     .btn-danger:hover {
+
+            background-color: firebrick;
+               }        
+
+          }
+
+          /* Desktops */
+        @media only screen and (min-width: 1281px) {
+            .btn-primary, .btn-success, .btn-danger, .copy-button {
+           
+            cursor: pointer;
+
+        }
+
+        .btn-primary:hover {
+            background-color: #1F4E79;
+        }
+         
+        input[type="text"]:hover {
+            border: 3px solid slateblue;
+            border-radius: 6px;
+             }
+      
         
+        .btn-success:hover {
+
+                background-color: chartreuse;
+             }
+
+        .btn-danger:hover {
+
+                background-color: firebrick;
+            }
+          }
+          
         body {
             background: #367CA5;
             color: #333; 
@@ -100,6 +156,7 @@ if ('generated' === $status) {
             border-radius: 5px;
             padding: 8px 14px;
             margin-left: 1%;
+
         }
 
         .btn-primary:active {
@@ -113,6 +170,7 @@ if ('generated' === $status) {
             border-radius: 5px;
             padding: 8px 15px;
             float: right;
+
         }
         
         .btn-danger {
@@ -121,6 +179,7 @@ if ('generated' === $status) {
              color: white;
              border-radius: 5px;
              padding: 8px 15px;
+
         }
         
         .btn-danger:active {
@@ -150,6 +209,7 @@ if ('generated' === $status) {
             justify-content: center;
             align-items: center;
             position: relative;
+
         }
         
         .copy-button:active {
@@ -196,7 +256,7 @@ if ('generated' === $status) {
            outline-color: skyblue;
            border-radius: 3px;
            margin: 1.4%;
-           padding: 1.5%;  
+           padding: 8px;  
         }
         
         .active-and-generated-conf-money-send-form, 
@@ -270,11 +330,11 @@ if ('generated' === $status) {
                 <div class="d-flex mb-3">
                     <span class="text-line me-2"><?= $addr['addr'] ?> 
                     </span>
-                    <button 
-                     onclick="copy('<?= $addr['addr'] ?>','#copy_button_<?= $name ?>')" 
-                     id="copy_button_<?= $name ?>" class="btn btn-sm btn-success copy-button">
-                     Copy
-                     </button>
+                   <button 
+    onclick="copy('<?= $addr['addr'] ?>','#copy_button_<?= $name ?>')" 
+    id="copy_button_<?= $name ?>" class="btn btn-sm btn-success copy-button">
+    Copy
+                   </button>
                 </div>
             </h2>
    <?php endforeach; ?>

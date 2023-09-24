@@ -42,6 +42,63 @@ $slot = $slots->showSlot($_GET['slot']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
+
+       /* Laptops */
+       @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+            
+            .btn-primary {
+               
+               cursor: pointer;
+    
+           }
+    
+           .btn-primary:hover {
+               background-color: #1F4E79;
+           }
+    
+           input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+                 }
+
+           .btn-success:hover {
+
+                    background-color: chartreuse;
+                             }
+          .btn-danger:hover {
+
+                    background-color: firebrick;
+                           }           
+                  
+              }
+    
+              /* Desktops */
+            @media only screen and (min-width: 1281px) {
+                .btn-primary {
+               
+                cursor: pointer;
+    
+            }
+    
+            .btn-primary:hover {
+                background-color: #1F4E79;
+            }
+             
+            input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+                 }
+
+            .btn-success:hover {
+
+                  background-color: chartreuse;
+                     }
+            .btn-danger:hover {
+
+                  background-color: firebrick;
+                    }             
+          
+              }
         body {
             background-color: #367CA5;
             color: white;
@@ -150,7 +207,7 @@ $slot = $slots->showSlot($_GET['slot']);
             border: none;
             color: white;
             border-radius: 5px;
-            padding: 2% 8%;
+            padding: 8px;
             margin-top: 0.5%;
             cursor: pointer;
             
@@ -190,7 +247,7 @@ $slot = $slots->showSlot($_GET['slot']);
              border: 2px solid #367CA5;
              outline-color: skyblue;
              border-radius: 3px;
-             padding: 1.4%;
+             padding: 7px;
              
         }
         

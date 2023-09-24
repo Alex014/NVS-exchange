@@ -56,6 +56,64 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
     <title>Emercoin Name-Value Exchange</title>
     
     <style>
+
+         /* Laptops */
+       @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+            
+            .btn-primary {
+               
+               cursor: pointer;
+    
+           }
+    
+           .btn-primary:hover {
+               background-color: #1F4E79;
+           }
+    
+           input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+                 }
+
+           .btn-success:hover {
+
+                    background-color: chartreuse;
+                             }
+          .btn-danger:hover {
+
+                    background-color: firebrick;
+                           }           
+                  
+              }
+    
+              /* Desktops */
+            @media only screen and (min-width: 1281px) {
+                .btn-primary {
+               
+                cursor: pointer;
+    
+            }
+    
+            .btn-primary:hover {
+                background-color: #1F4E79;
+            }
+             
+            input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+                 }
+
+            .btn-success:hover {
+
+                  background-color: chartreuse;
+                     }
+            .btn-danger:hover {
+
+                  background-color: firebrick;
+                    }             
+          
+              }
+     
         body {
             background-color: #367CA5;
             color: white;
@@ -108,7 +166,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
 
         .form-text {
             color: #1B4F73;
-            font-size: 12%;
+            font-size: 0.7em;
         }
 
         .alert {
@@ -147,7 +205,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
         }
         
         input {
-             padding: 2%;
+             padding: 8px;
         }
         
     </style>

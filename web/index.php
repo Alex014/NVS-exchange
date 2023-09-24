@@ -53,6 +53,44 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
     <!-- Custom CSS for appealing UI -->
     <style>
        
+       /* Laptops */
+       @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+            
+            .btn-primary {
+               
+               cursor: pointer;
+    
+           }
+    
+           .btn-primary:hover {
+               background-color: #1F4E79;
+           }
+    
+           input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+                 }
+                  
+              }
+    
+              /* Desktops */
+            @media only screen and (min-width: 1281px) {
+                .btn-primary, .btn-success, .btn-danger, .copy-button {
+               
+                cursor: pointer;
+    
+            }
+    
+            .btn-primary:hover {
+                background-color: #1F4E79;
+            }
+             
+            input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+                 }
+          
+              }
         body {
             background-color: #367CA5;
             color: white;
@@ -86,11 +124,11 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
             color: white;
             border-radius: 5px;
             padding: 8px 15px;
+            cursor: pointer;
         }
 
         .btn-primary:active {
             background-color: #1B4F73;
-            cursor: pointer;
         }
         
  
@@ -111,7 +149,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
         }
         
         input {
-             padding: 2%;
+             padding: 6px;
         }
         
 
@@ -178,7 +216,7 @@ if (!empty($_POST['name']) && !empty($_POST['value'])) {
          <label 
            for="value" 
            class="form-label">
-           Value Hitory:
+           Value History:
          </label><br>
          
    <textarea 
