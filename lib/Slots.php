@@ -119,6 +119,8 @@ class Slots {
         return false;
     }
 
+    //TODO: update slot (name_update)
+
     public function processSlots()
     {
         foreach($this->db->listUnpayedSlots() as $slot) {
