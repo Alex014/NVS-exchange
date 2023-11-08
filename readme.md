@@ -1,6 +1,6 @@
 # Emercoin NVS exchange
 
-## Buy NVS records for EMC
+## Buy NVS records for EMC, NESS, NCH
 
 Execute
 
