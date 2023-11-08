@@ -5,12 +5,27 @@ require_once __DIR__ . '/iSlotDatabase.php';
 
 use \lib\iSlotDatabase;
 
-class DB implements iSlotDatabase {
+class Sqlite implements iSlotDatabase {
     private $connection;
 
-    public function __construct($host, $database, $user, $password)
+    public function __construct($db_filename)
     {
-        $this->connection = new \PDO('mysql:host=' . $host . ';dbname=' . $database, $user, $password);
+        $this->connection = new \PDO("sqlite:" . __DIR__ . '/' . $db_filename);
+
+        $sql = <<<SQL
+            CREATE TABLE IF NOT EXISTS `slots` (
+            `id` INTEGER PRIMARY KEY,
+            `slot_id` TEXT KEY NOT NULL,
+            `addr` TEXT KEY,
+            `name` TEXT UNIQUE,
+            `value` TEXT  NOT NULL,
+            `status` TEXT KEY CHECK( `status` IN ('GENERATED','UPDATED','PAYED') )   NOT NULL DEFAULT 'GENERATED',
+            `created` INTEGER UNSIGNED KEY NOT NULL 
+            )
+        SQL;
+
+        $st = $this->connection->prepare($sql);
+        return $st->execute();
     }
 
 
@@ -33,7 +48,7 @@ class DB implements iSlotDatabase {
     public function setSlotPayed(string $slot_id)
     {
         $st = $this->connection->prepare(
-            "UPDATE slots SET `status` = 'PAYED' WHERE `slot_id` = ?");
+            "UPDATE slots SET status = 'PAYED' WHERE `slot_id` = ?");
 
         return $st->execute([$slot_id]);
     }

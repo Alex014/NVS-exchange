@@ -2,7 +2,7 @@
 namespace lib;
 
 interface IWallet {
-    public function getMinSum(): float;
+    public function getMinSum(int $daysx100): float;
     public function setMinSum(float $sum);
     public function getWalletName(): string;
     public function getWalletDescription(): string;

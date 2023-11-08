@@ -19,24 +19,21 @@ if ($argc == 1) {
 } elseif ($argc == 2) {
     $addr_count = 1;
     $wallet = $argv[1];
-} elseif ($argc == 3) {
-    $addr_count = (int)$argv[2];
-    $wallet = $argv[1];
 }
 
 $Ness = new Ness($ness['host'], (int) $ness['port'], $ness['wallets'], $wallet, $ness['prefix']);
 
 if (false !== $Ness->health()) {
-    for ($i = 0; $i < $addr_count; $i++) {
-        // $res = $Ness->createAddrDebug();
-        echo $Ness->createAddr();
-        echo "\n";
+    foreach ($Ness->listAddresses($wallet) as $addr => $sum) {
+        echo "$addr Coins:" . $sum['confirmed']['coins'] . "  Hours:" . $sum['confirmed']['hours'] . "\n";
     }
 } else {
     echo "No connection.\n";
 }
 
+echo "First empty address: " . $Ness->findEmptyAddress($wallet) . "\n";
+
 if ($argc == 1) {
-    echo "\n\nUSAGE: \n";
-    echo "php new-addr.php [wallet-filename] [new addresses count]\n";
+    echo "\nUSAGE: \n";
+    echo "php list-addr.php [wallet-filename]\n";
 }

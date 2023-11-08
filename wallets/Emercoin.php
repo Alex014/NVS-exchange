@@ -22,9 +22,9 @@ class Emercoin implements IWallet {
         Emc::$password = $femc['password'];
     }
 
-    public function getMinSum(): float
+    public function getMinSum(int $daysx100): float
     {
-        return $this->min_sum;
+        return $this->min_sum * $daysx100;
     }
 
     public function setMinSum(float $sum)

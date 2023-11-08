@@ -18,9 +18,9 @@ class NCH implements IWallet {
         $this->ness = new Privateness($ness['host'], (int) $ness['port'], $ness['wallets'], $ness['main_wallet_id'], $ness['prefix']);
     }
 
-    public function getMinSum(): float
+    public function getMinSum(int $daysx100): float
     {
-        return $this->min_sum;
+        return $this->min_sum * $daysx100;
     }
 
     public function setMinSum(float $sum)

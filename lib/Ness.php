@@ -56,14 +56,24 @@ class Ness {
     return $responce['addresses'];
   }
 
-  public function findEmptyAddress() {
-    foreach ($this->wallets as $wallet => $password) {
-      foreach ($this->listAddresses($wallet) as $address => $balance) {
-        if (0 == $balance['confirmed']['coins'] && 0 == $balance['confirmed']['hours']) {
-          return $address;
+  public function findEmptyAddress(string $wallet = '') {
+    if (!empty($wallet)) {
+        foreach ($this->listAddresses($wallet) as $address => $balance) {
+          if (0 == $balance['confirmed']['coins'] && 0 == $balance['confirmed']['hours']) {
+            return $address;
+          }
+        }
+    } else {
+      foreach ($this->wallets as $wallet => $password) {
+        foreach ($this->listAddresses($wallet) as $address => $balance) {
+          if (0 == $balance['confirmed']['coins'] && 0 == $balance['confirmed']['hours']) {
+            return $address;
+          }
         }
       }
     }
+
+    return false;
   }
 
   public function createAddr(): string 

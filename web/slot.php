@@ -1,7 +1,8 @@
 <?php
-require __DIR__ . '/../lib/Container.php';
-
 ini_set('display_errors', true);
+error_reporting(E_ALL);
+
+require __DIR__ . '/../lib/Container.php';
 
 use lib\Container;
 
@@ -25,11 +26,13 @@ if ('PAYED' === $slot['status']) {
     $result = $slots->processSlot($_GET['slot']);
 } elseif (isset($_POST["delete"])) {
     $result = $slots->deleteSlot($_GET['slot']);
-    header('location: /');
+    header('location: /?msg=deleted&name=' . urlencode($slot['name']));
     die();
 }
 
 $slot = $slots->showSlot($_GET['slot']);
+
+$actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -297,16 +300,27 @@ $slot = $slots->showSlot($_GET['slot']);
                    &lt;&lt;&lt; GO BACK
               </a> 
           </h1>
+
+            <a href="javascript:void(0)" onclick="CreateBookmarkLink()">
+                Bookmark page (press Ctrl+D to bookmark this page if link does not work)
+            </a> 
+            <br/><br/>
+            <div id="copy_url">
+                <a href="javascript:void(0)" onclick="copy('<?=$actual_link?>','#copy_url')" id="copy_url" >
+                    Copy link
+                </a> 
+            </div>
+    <?php if (!isset($result) || (false === $result)): ?>
             
     <?php foreach ($slot['addr'] as $name => $addr): ?>
     
      <h2>
            <b>
-             <?= $addr['descr']?>
+             <?=$addr['descr']?>
              </b> 
              Send 
-             <?=  $addr['min_sum'] ?
-             <?=$name?>to:
+             <?=$addr['min_sum']?>
+             <?=$name?> to:
       <div 
           class="d-flex justify-content-between align-items-center mb-3">
          
@@ -323,41 +337,67 @@ $slot = $slots->showSlot($_GET['slot']);
      </div>
   </h2>
   
-  
     <?php endforeach; ?>
 
-       <h3>NAME: 
+    <?php endif; ?>
+
+    <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
+       <h3>NAME: <br/>
+         <span class="name">
+                <?= nl2br(htmlentities($slot['nvs']['name'])) ?>
+         </span>
+       </h3>
+       <?php else: ?>
+       <h3>NAME: </br/>
           <span class="name">
             <?= htmlentities($slot['name']) ?>
           </span>
        
        </h3>
+        <?php endif; ?>
        
-       <h3>VALUE:
+       <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
+       <h3>VALUE: <br/>
+         <span class="value">
+                <?= nl2br(htmlentities($slot['value'])) ?>
+         </span>
+       </h3>
+       <?php else: ?>
+       <h3>VALUE: <br/>
          <span class="value">
               <?= nl2br(htmlentities($slot['value'])) ?>
          </span>
        </h3>
+        <?php endif; ?>
+       
+       <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
+       <h3>Expires in: <br/>
+         <span class="value">
+                <?=round($slot['nvs']['expires_in']/144)?> days
+         </span>
+       </h3>
+       <?php else: ?>
+       <h3>DAYS: <br/>
+         <span class="value">
+                + <?= nl2br(htmlentities($slot['addr']['EMC']['days'])) ?>
+         </span>
+       </h3>
+        <?php endif; ?>
 
-    <?php if(isset($result)): ?>
-        <?php if($result): ?>
             <div 
               class="payment-success-msg <?php if (isset($result) && $result): ?>display-payment-conf-nvs-created<?php endif; ?>"
               role="alert">
               Payment confirmed !    
                  <br>
-               NVS created !
+               Name-Value record created or updated !
             </div>
                     
                     
-    <?php else: ?>
-<form method="POST" class="money-send-conf-form <?php if (true): ?>display-money-send-conf-form<?php endif; ?>">
+<form method="POST" class="money-send-conf-form <?php if (!isset($result) || (false === $result)): ?>display-money-send-conf-form<?php endif; ?>">
       <input 
-         type="text" 
+         type="hidden" 
          name="check" 
-         value=""
-         placeholder="Enter confirmation"
-         required 
+         value="" 
          />
       
    <button 
@@ -368,44 +408,21 @@ $slot = $slots->showSlot($_GET['slot']);
 </form>
                     
        <div 
-        class="tx-not-conf-yet-msg <?php if (true): ?>display-tx-not-conf-yet-msg<?php endif; ?>"
+        class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result)): ?>display-tx-not-conf-yet-msg<?php endif; ?>"
         role="alert">       
         Transaction not confirmed yet !
        </div>
                     
-     <?php endif; ?>
 
-       <?php if (!isset($result)): ?>
-           <div 
-           class="float-start <?php if (!isset($result)): ?>display-money-send-conf-form<?php endif; ?>">
- <form 
-   method="POST"
-   class="float-left">
-    <input 
-    type="text" 
-    name="check" 
-    value=""
-    placeholder="Enter confirmation"
-    required
-    />
-                  
-    <button 
-     type="submit" 
-     class="btn btn-primary">
-     Confirm money send
-    </button>
- </form>
-</div><br>
+<br>
 
-  <div class="deleting-slot-form <?php if (!isset($result)): ?>display-deleting-slot-form<?php endif; ?>">
+  <div class="deleting-slot-form <?php if (empty($result) && ('GENERATED' === $slot['status'])): ?>display-deleting-slot-form<?php endif; ?>">
    <form method="POST"
        class="float-right">
        <input 
-         type="text" 
+         type="hidden" 
          name="delete" 
-         value=""
-         placeholder="Enter confirmation"
-         required 
+         value="" 
          />
         <button 
          type="submit" 
@@ -413,8 +430,15 @@ $slot = $slots->showSlot($_GET['slot']);
          Delete slot (!)
         </button>
      </form>
-                </div>
-            <?php endif; ?>
+    </div>
+
+    <?php if (isset($result) && $result): ?>
+        <a 
+            class="btn btn-primary"
+            href="/edit.php?slot=<?= $slot['slot_id'] ?>">
+            Edit Name-Value record
+        </a>
+    <?php endif; ?>
         </div>
     </div>
 </div>
@@ -432,6 +456,22 @@ $slot = $slots->showSlot($_GET['slot']);
         var result = document.execCommand('copy');
         document.body.removeChild(input)
         return result;
+    }
+
+    function CreateBookmarkLink() {
+
+        title = "NVS exchange"; 
+        //or title = document.title
+
+        url = "<?=$actual_link?>";
+        //or url = location.href
+
+        if (window.sidebar) { // Mozilla Firefox Bookmark
+            window.sidebar.addPanel(title, url,"");
+        } else if( window.external && window.external.AddFavorite ) { // IE Favorite
+            window.external.AddFavorite( url, title); 
+        }
+
     }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous">

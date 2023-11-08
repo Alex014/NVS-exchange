@@ -18,9 +18,9 @@ class Ness implements IWallet {
         $this->ness = new Privateness($ness['host'], (int) $ness['port'], $ness['wallet_id'], $ness['password'], $ness['prefix']);
     }
 
-    public function getMinSum(): float
+    public function getMinSum(int $daysx100): float
     {
-        return $this->min_sum;
+        return $this->min_sum * $daysx100;
     }
 
     public function setMinSum(float $sum)
@@ -38,7 +38,7 @@ class Ness implements IWallet {
         return 'Privateness';
     }
 
-    public function generateAddress()
+    public function generateAddress(string $wallet = '')
     {
         return $this->ness->createAddr();
     }

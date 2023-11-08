@@ -60,13 +60,23 @@ if (!isset($err)) {
     echo "\nEmercoin NVS - OK\n";
 }
 
-if ($Ness->health()) {
+$health = $Ness->health();
+
+if ($health) {
     echo "\nNESS - OK\n";
+
+    if ($argc > 1 && '-debug' === $argv[1]) {
+        print_r($health);
+    }
 
     foreach ($Ness->listWallets() as $wallet => $password) {
         $addresses = $Ness->listAddresses($wallet);
 
-        echo $wallet . ": " . count($addresses) . " addresses\n";
+        if (null === $addresses) {
+            echo $wallet . ": 0 addresses\n";
+        } else {
+            echo $wallet . ": " . count($addresses) . " addresses\n";
+        }
 
         if ($argc > 1 && '-debug' === $argv[1]) {
             print_r($addresses);
@@ -77,8 +87,9 @@ if ($Ness->health()) {
 
 } else {
     echo "\nNESS - FAILED\n";
+
 }
 
 if ($argc == 1) {
-    echo "\nUse 'php check.php -debug' for more info\n";
+    echo "\nUse 'php self-test.php -debug' for more info\n";
 }

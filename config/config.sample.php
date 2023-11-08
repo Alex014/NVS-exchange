@@ -9,7 +9,9 @@ return [
             '2022_06_15_fada.wlt' => 'qwerty'
         ],
         'main_wallet_id' => '2021_12_02_fdgh.wlt',
-        'prefix' => 'http://'
+        'prefix' => 'http://',
+        /** Generate new address for new slot or use existing one */
+        'gen_address' => true
     ],
     'emercoin' => [
         'host' => '127.0.0.1',

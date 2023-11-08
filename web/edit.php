@@ -9,41 +9,35 @@ $error = false;
 $config = require __DIR__ . '/../config/config.php';
 $fdb = $config['db'];
 
-if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days'])) {
-    $name = $_POST['name'];
+if (empty($_GET['slot'])) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+    die('Slot not found');
+}
+
+$slots = Container::createSlots();
+
+$slot = $slots->showSlot($_GET['slot']);
+$slot_id = $slot['slot_id'];
+
+if (empty($slot)) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+    die('Slot not found');
+}
+
+if ('PAYED' !== $slot['status']) {
+    header('location: /slot.php?slot=' . $slot_id );
+}
+
+if (!empty($_POST['value']) && !empty($_POST['days'])) {
+    $name = $slot['name'];
     $value = $_POST['value'];
     $days = (int)$_POST['days'];
     
-    if ($days < 100) {
-        $days = 100;
-    }
-
-    $slots = Container::createSlots();
-
-    if (!empty($slots->locateSlot($_POST['name']))) {
-        $error = 'nvs';
-    } else {
-        $last_slot_time = $slots->lastSlotTime();
-
-        if ((time() - $slots->lastSlotTime()) < 30) {
-            header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
-            die('Time restriction (30 sec)');
-        }
-
-        $slot = $slots->findSlot($_POST['name']);
-
-        if (!empty($slot)) {
-            header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
-            $error = 'db';
-        } else {
-            $slot_id = $slots->createSlot($_POST['name'], $_POST['value'], (int) $_POST['days']);
-            header('location: /slot.php?slot=' . $slot_id );
-        }
-
-    }
+    $slots->updateSlot($slot_id, $name, $value, $days);
+    header('location: /slot.php?slot=' . $slot_id );
 } else {
-    $name = '';
-    $value = '';
+    $name = $slot['name'];
+    $value = $slot['value'];
     $days = 100;
 }
 ?>
@@ -184,6 +178,17 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
         .result {
             color: green;
         }
+
+        h1, h2, h3 {
+            color: #367CA5;
+            font-size: 18px;
+        }
+        
+        .name, .value {
+             color: black;
+             font-style: italic;
+             font-size: 0.8em;
+        }
     </style>
 </head>
 <body>
@@ -191,34 +196,20 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>NVS Exchange</h1>
-            <h3>Emercoin: EMC to NVS</h3>
+        <h1> 
+              <a href="/slot.php?slot=<?=$slot['slot_id']?>">
+                   &lt;&lt;&lt; GO BACK
+              </a> 
+          </h1>
 
   <form method="POST">
     <div class="mb-3">
-         <label 
-          for="name"     
-          class="form-label">
-          Name:
-         </label><br>
-         
-   <input 
-    
-    type="name" 
-    class="form-control" 
-    id="name" 
-    name="name" 
-    value="<?=$name?>" 
-    placeholder=" dns:ness.bts" 
-    required>
-                   
-                   
-      <div 
-        id="nameHelp" 
-        class="form-text">
-        Enter Your Emercoin NVS Name
-      </div>
-   </div>
+        <h3>NAME: </br/>
+          <span class="name">
+            <?= htmlentities($slot['name']) ?>
+          </span>
+        </h3>
+    </div>
 
 
     <div class="mb-3">
@@ -273,7 +264,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
      <button 
        type="submit" 
        class="btn btn-primary">
-       Create payment slot
+       Update NVS record
      </button>
 </form> <br>
 
