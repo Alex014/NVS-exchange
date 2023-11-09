@@ -23,7 +23,21 @@ if (empty($slot)) {
 if ('PAYED' === $slot['status']) {
     $result = true;
 } elseif (isset($_POST["check"])) {
-    $result = $slots->processSlot($_GET['slot']);
+    $error = false;
+
+    try {
+        $result = $slots->processSlot($_GET['slot']);
+    } catch (Exception $e) {
+        $result = false;
+
+        if (false !== strpos($e->getMessage(), 'pending operations')) {
+            $error = 'There are pending operation on that name (' . $slot['name'] . ') '
+            . ' <br/> This can be New name or edit name operation '
+            . ' <br/> Try to wait 10 min';
+        } else {
+            $error = $e->getMessage();
+        }
+    }
 } elseif (isset($_POST["delete"])) {
     $result = $slots->deleteSlot($_GET['slot']);
     header('location: /?msg=deleted&name=' . urlencode($slot['name']));
@@ -406,9 +420,15 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
      Confirm money send
    </button>
 </form>
+
+    <?php if (isset($result) && (false === $result) && (false !== $error)): ?>
+        <code style="color: red;">
+        <?=$error?>
+        </code>
+    <?php endif; ?>
                     
        <div 
-        class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result)): ?>display-tx-not-conf-yet-msg<?php endif; ?>"
+        class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result) && (false === $error)): ?>display-tx-not-conf-yet-msg<?php endif; ?>"
         role="alert">       
         Transaction not confirmed yet !
        </div>
