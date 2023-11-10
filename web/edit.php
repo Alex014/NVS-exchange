@@ -146,6 +146,8 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
             outline-color: skyblue;
             margin-top: 7%;
             margin-left: 50px;
+            width: 90%;
+            max-width: 500px;
         }
         
         input {
@@ -155,7 +157,7 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
 
         .form-text {
             color: #1B4F73;
-            font-size: 8px;
+            font-size: 10px;
             margin-left: 55px;
         }
         
