@@ -153,7 +153,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             margin-top: 7%;
             margin-left: 50px;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px;
         }
         
         input {
