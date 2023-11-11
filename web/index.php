@@ -218,7 +218,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
       <div 
         id="nameHelp" 
         class="form-text">
-        Enter Your Emercoin NVS Name
+        Enter desired or requested NVS name
       </div>
    </div>
 
@@ -244,7 +244,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
       <div 
         id="nameHelp" 
         class="form-text">
-        Days (ammount of days to store your NVS record):
+        Days (amount of days to store your NVS record):
       </div>
    </div>
 
@@ -269,7 +269,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
        <div 
          id="valueHelp" 
          class="form-text">
-         Enter Your Emercoin NVS Value History</div>
+         Enter desired or requested NVS Value</div>
      </div>
             
      <button 

@@ -235,7 +235,7 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
       <div 
         id="nameHelp" 
         class="form-text">
-        Days (ammount of days to store your NVS record):
+        Days (amount of days to store your NVS record):
       </div>
    </div>
 
