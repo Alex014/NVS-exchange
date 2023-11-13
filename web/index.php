@@ -196,7 +196,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
     <div class="row">
         <div class="col">
             <h1>NVS Exchange</h1>
-            <h3>Emercoin: EMC to NVS</h3>
+            <h3>Emercoin (EMC) and Privateness (NESS or NCH) to NVS</h3>
 
   <form method="POST">
     <div class="mb-3">
