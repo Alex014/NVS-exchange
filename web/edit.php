@@ -261,7 +261,7 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
       <div 
         id="nameHelp" 
         class="form-text">
-        Enter your emercoin address (if you want to export this NVS to your wallet)
+        Enter your emercoin address (if you want to export this NVS to outer wallet)
       </div>
    </div>
 
