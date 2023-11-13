@@ -19,6 +19,7 @@ class Sqlite implements iSlotDatabase {
             `addr` TEXT KEY,
             `name` TEXT UNIQUE,
             `value` TEXT  NOT NULL,
+            `address` TEXT  NOT NULL,
             `status` TEXT KEY CHECK( `status` IN ('GENERATED','UPDATED','PAYED') )   NOT NULL DEFAULT 'GENERATED',
             `created` INTEGER UNSIGNED KEY NOT NULL 
             )
@@ -28,21 +29,26 @@ class Sqlite implements iSlotDatabase {
         return $st->execute();
     }
 
-
-    public function createSlot(string $key, string $value, string $addr, string $slot_id)
+    public function execSql(string $sql)
     {
-        $st = $this->connection->prepare(
-            "INSERT INTO slots (slot_id, addr, name, value, created) VALUES(?, ?, ?, ?, ?)");
-        return $st->execute([$slot_id, $addr, $key, $value, time()]);
+        $st = $this->connection->prepare($sql);
+        return $st->execute();
     }
 
-    public function updateSlot(string $key, string $value, string $addr, string $slot_id)
+    public function createSlot(string $key, string $value, string $addr, string $address, string $slot_id)
+    {
+        $st = $this->connection->prepare(
+            "INSERT INTO slots (slot_id, addr, name, value, address, created) VALUES(?, ?, ?, ?, ?, ?)");
+        return $st->execute([$slot_id, $addr, $key, $value, $address, time()]);
+    }
+
+    public function updateSlot(string $key, string $value, string $addr, string $address, string $slot_id)
     {
         $st = $this->connection->prepare(
             "UPDATE slots SET "
-            . "addr = ?, name = ?, value = ?, created = ?, `status` = 'UPDATED' "
+            . "addr = ?, name = ?, value = ?, address = ?, created = ?, `status` = 'UPDATED' "
             . "WHERE `slot_id` = ?");
-        return $st->execute([$addr, $key, $value, time(), $slot_id]);
+        return $st->execute([$addr, $key, $value, $address, time(), $slot_id]);
     }
 
     public function setSlotPayed(string $slot_id)

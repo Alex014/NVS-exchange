@@ -21,7 +21,7 @@ class Slots {
         $this->wallets = $wallets;
     }
 
-    public function createSlot(string $key, string $value, $days = 100): string
+    public function createSlot(string $key, string $value, string $address = '', $days = 100): string
     {
         $slot_id = md5(rand(10000, 99999) . time());
         $daysx100 = ceil($days / 100);
@@ -43,12 +43,12 @@ class Slots {
 
         $addr = json_encode($addr);
 
-        $this->db->createSlot($key, $value, $addr, $slot_id);
+        $this->db->createSlot($key, $value, $addr, $address, $slot_id);
 
         return $slot_id;
     }
 
-    public function updateSlot(string $slot_id, string $key, string $value, $days = 100): string
+    public function updateSlot(string $slot_id, string $key, string $value, string $address = '', $days = 100): string
     {
         $daysx100 = ceil($days / 100);
         $addr = [];
@@ -68,7 +68,7 @@ class Slots {
 
         $addr = json_encode($addr);
 
-        $this->db->updateSlot($key, $value, $addr, $slot_id);
+        $this->db->updateSlot($key, $value, $addr, $address, $slot_id);
 
         return $slot_id;
     }
@@ -92,7 +92,7 @@ class Slots {
 
         $addr = json_encode($addr);
 
-        $this->db->updateSlot($slot['name'], $slot['value'], $addr, $slot_id);
+        $this->db->updateSlot($slot['name'], $slot['value'], $addr, $slot['address'], $slot_id);
     }
 
     public function showSlot(string $slot_id)
@@ -180,7 +180,12 @@ class Slots {
         foreach ($this->wallets as $wallet) {
             $wname = $wallet->getWalletName();
             if (isset($addrs[$wname]) && $wallet->checkRecievedByAddress($addrs[$wname]['addr'])) {
-                Emercoin::name_new($slot['name'], $slot['value'], $addrs[$wname]['days']);
+                if (!empty($slot['address'])) {
+                    Emercoin::name_new($slot['name'], $slot['value'], $addrs[$wname]['days'], $slot['address']);
+                } else {
+                    Emercoin::name_new($slot['name'], $slot['value'], $addrs[$wname]['days']);
+                }
+
                 $this->db->setSlotPayed($slot_id);  
                 return true;
             }
@@ -206,7 +211,12 @@ class Slots {
         foreach ($this->wallets as $wallet) {
             $wname = $wallet->getWalletName();
             if (isset($addrs[$wname]) && $wallet->checkRecievedByAddress($addrs[$wname]['addr'])) {
-                Emercoin::name_update($slot['name'], $slot['value'], $addrs[$wname]['days']);
+                if (!empty($slot['address'])) {
+                    Emercoin::name_update($slot['name'], $slot['value'], $addrs[$wname]['days'], $slot['address']);
+                } else {
+                    Emercoin::name_update($slot['name'], $slot['value'], $addrs[$wname]['days']);
+                }
+
                 $this->db->setSlotPayed($slot_id);  
                 return true;
             }

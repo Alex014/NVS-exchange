@@ -31,13 +31,15 @@ if ('PAYED' !== $slot['status']) {
 if (!empty($_POST['value']) && !empty($_POST['days'])) {
     $name = $slot['name'];
     $value = $_POST['value'];
+    $address = $_POST['address'];
     $days = (int)$_POST['days'];
     
-    $slots->updateSlot($slot_id, $name, $value, $days);
+    $slots->updateSlot($slot_id, $name, $value, $address, $days);
     header('location: /slot.php?slot=' . $slot_id );
 } else {
     $name = $slot['name'];
     $value = $slot['value'];
+    $address = $slot['address'];
     $days = 100;
 }
 ?>
@@ -168,7 +170,7 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
         
         .alert {
              color: red;
-             font-size: 4%;
+             font-size: Medium;
              font-weight: bold;
              display: none;
         }
@@ -236,6 +238,30 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
         id="nameHelp" 
         class="form-text">
         Days (amount of days to store your NVS record):
+      </div>
+   </div>
+
+   <div class="mb-3">
+         <label 
+          for="name"     
+          class="form-label">
+          Address (optional):
+         </label><br>
+         
+   <input 
+    
+    type="text" 
+    class="form-control" 
+    id="address" 
+    name="address" 
+    value="<?=$address?>"
+    required>
+                   
+                   
+      <div 
+        id="nameHelp" 
+        class="form-text">
+        Enter your emercoin address (if you want to export this NVS to your wallet)
       </div>
    </div>
 
