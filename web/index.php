@@ -119,7 +119,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             color: grey;
             position: absolute;
             margin-top: 6%;
-            margin-left: 50px;
+            margin-left: 6%;
         }
         
         
@@ -128,7 +128,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             background-color: #367CA5;
             border: none;
             margin-top: 7%;
-            margin-left: 50px;
+            margin-left: 6%;
             color: white;
             border-radius: 5px;
             padding: 8px 15px;
@@ -166,7 +166,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
         .form-text {
             color: #1B4F73;
             font-size: 10px;
-            margin-left: 55px;
+            margin-left: 7%;
         }
         
         textarea {
