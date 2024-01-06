@@ -12,6 +12,7 @@ $fdb = $config['db'];
 if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days'])) {
     $name = $_POST['name'];
     $value = $_POST['value'];
+    $address = $_POST['address'];
     $days = (int)$_POST['days'];
     
     if ($days < 100) {
@@ -36,7 +37,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             header($_SERVER["SERVER_PROTOCOL"] . " 403 Denied");
             $error = 'db';
         } else {
-            $slot_id = $slots->createSlot($_POST['name'], $_POST['value'], (int) $_POST['days']);
+            $slot_id = $slots->createSlot($_POST['name'], $_POST['value'], $_POST['address'], (int) $_POST['days']);
             header('location: /slot.php?slot=' . $slot_id );
         }
 
@@ -44,6 +45,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
 } else {
     $name = '';
     $value = '';
+    $address = '';
     $days = 100;
 }
 ?>
@@ -174,7 +176,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
         
         .alert {
              color: red;
-             font-size: 4%;
+             font-size: medium;
              font-weight: bold;
              display: none;
         }
@@ -200,7 +202,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
     <div class="row">
         <div class="col">
             <h1>NVS Exchange</h1>
-            <h3>Emercoin: EMC to NVS</h3>
+            <h3>Emercoin (EMC) and Privateness (NESS or NCH) to NVS</h3>
 
   <form method="POST">
     <div class="mb-3">
@@ -254,6 +256,29 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
       </div>
    </div>
 
+    <div class="mb-3">
+         <label 
+          for="name"     
+          class="form-label">
+          Address (optional):
+         </label><br>
+         
+   <input 
+    
+    type="text" 
+    class="form-control" 
+    id="address" 
+    name="address" 
+    value="<?=$address?>"
+    required>
+                   
+                   
+      <div 
+        id="nameHelp" 
+        class="form-text">
+        Enter your emercoin address (if you want to export this NVS to outer wallet)
+      </div>
+   </div>
                
       <div class="mb-3">
          <label 

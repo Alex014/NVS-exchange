@@ -34,6 +34,9 @@ if ('PAYED' === $slot['status']) {
             $error = 'There are pending operation on that name (' . $slot['name'] . ') '
             . ' <br/> This can be New name or edit name operation '
             . ' <br/> Try to wait 10 min';
+        } elseif (false !== strpos($e->getMessage(), 'this name tx is not yours')) {
+            $error = 'This NVS was sent to address which is outside this exchange'
+            . ' <br/> You can\'t modify this record here';
         } else {
             $error = $e->getMessage();
         }
