@@ -153,7 +153,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             color: #367CA5;
             outline-color: skyblue;
             margin-top: 7%;
-            margin-left: 50px;
+            margin-left: 6%;
             width: 90%;
             max-width: 500px;
         }
