@@ -357,6 +357,8 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous">
+</script>
 
 <!-- jQuery script for light/dark mode toggle -->
 <script src="/js/darkmode.js"></script>
