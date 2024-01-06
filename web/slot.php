@@ -510,5 +510,13 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 <!-- jQuery script for light/dark mode toggle -->
 <script src="/js/darkmode.js"></script>
 
+<?php if (!empty($_COOKIE['darkmode'])): ?>
+<script type="text/javascript">
+$(document).ready(function () {
+    $(".toggle-icon").trigger("click")
+})
+</script>
+<?php endif; ?>
+
 </body>
 </html>

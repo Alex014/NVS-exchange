@@ -78,6 +78,7 @@ class Ness {
 
   public function createAddr(): string 
   {
+    echo 2;
     $responce = file_get_contents($this->prefix . $this->host . ":" . $this->port . "/api/v1/csrf");
 
     if (empty($responce)) {

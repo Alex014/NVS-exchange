@@ -48,3 +48,12 @@ h1.dark-mode, h3.dark-mode {
 .form-label.dark-mode, .faucet.dark-mode {
     color: green;
 }
+
+
+.text-line.dark-mode {
+        color: green;
+}
+    
+.name.dark-mode, .value.dark-mode {
+        color: white;
+}

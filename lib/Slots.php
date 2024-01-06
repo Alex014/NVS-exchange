@@ -27,10 +27,10 @@ class Slots {
         $daysx100 = ceil($days / 100);
         
         $addr = [];
-
+        
         foreach ($this->wallets as $wallet) {
             $genAddress = $wallet->generateAddress();
-
+            
             if (false !== $genAddress) {
                 $addr[$wallet->getWalletName()] = [
                     'addr' => $genAddress,

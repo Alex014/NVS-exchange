@@ -269,8 +269,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
     class="form-control" 
     id="address" 
     name="address" 
-    value="<?=$address?>"
-    >
+    value="<?=$address?>">
                    
                    
       <div 
@@ -371,6 +370,14 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
 
 <!-- jQuery script for light/dark mode toggle -->
 <script src="/js/darkmode.js"></script>
+
+<?php if (!empty($_COOKIE['darkmode'])): ?>
+<script type="text/javascript">
+$(document).ready(function () {
+    $(".toggle-icon").trigger("click")
+})
+</script>
+<?php endif; ?>
 
 </body>
 </html>
