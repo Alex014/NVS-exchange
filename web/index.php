@@ -270,7 +270,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
     id="address" 
     name="address" 
     value="<?=$address?>"
-    required>
+    >
                    
                    
       <div 

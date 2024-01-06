@@ -261,8 +261,7 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
     class="form-control" 
     id="address" 
     name="address" 
-    value="<?=$address?>"
-    required>
+    value="<?=$address?>">
                    
                    
       <div 
