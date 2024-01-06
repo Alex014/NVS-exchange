@@ -187,8 +187,14 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             color: green;
         }
     </style>
+
+    <link href="/css/darkmode.css"  rel="stylesheet"/>
 </head>
 <body>
+     
+     <!-- Dark mode toggle icons -->
+     
+         <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
 
 <div class="container">
     <div class="row">
@@ -334,6 +340,12 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
         </div>
     </div>
 </div>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- jQuery script for light/dark mode toggle -->
+<script src="/js/darkmode.js"></script>
 
 </body>
 </html>

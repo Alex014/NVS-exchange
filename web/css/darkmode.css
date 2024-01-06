@@ -1,0 +1,50 @@
+/* Additional styles for dark mode */
+body.dark-mode {
+    background-color: #15202B;
+    color: #FFFFFF;
+}
+
+.btn-primary.dark-mode {
+    background-color: green;
+    color: #15202B;
+    font-weight: bold;
+
+}
+
+.btn-primary.dark-mode:active {
+    background-color: green;
+}
+
+.toggle-icon {
+        width: 100px;
+        height: 40px;
+        
+        cursor: pointer;
+        
+        
+}
+
+.container.dark-mode {
+        color: green;
+        box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.5);
+        background-color: #15202B;
+}
+
+.form-text.dark-mode {
+        font-weight: bold;
+        color: green;
+}
+
+h1.dark-mode, h3.dark-mode {
+        color: green;
+}
+
+.form-control.dark-mode {
+        outline-color: green;
+        border: 2px solid greenyellow;
+        
+}
+
+.form-label.dark-mode, .faucet.dark-mode {
+    color: green;
+}

@@ -298,12 +298,19 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
         
     </style>
 
+    <link href="/css/darkmode.css"  rel="stylesheet"/>
+
     <title>
          Slot # <?= $slot['slot_id'] ?>
     </title>
 </head>
 
 <body>
+     
+     <!-- Dark mode toggle icons -->
+     
+         <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
+
 
 <div class="container">
    <div class="row">
@@ -496,6 +503,9 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous">
 </script>
+
+<!-- jQuery script for light/dark mode toggle -->
+<script src="/js/darkmode.js"></script>
 
 </body>
 </html>

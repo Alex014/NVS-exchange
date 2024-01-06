@@ -192,8 +192,15 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
              font-size: 0.8em;
         }
     </style>
+
+    <link href="/css/darkmode.css"  rel="stylesheet"/>
 </head>
 <body>
+     
+     <!-- Dark mode toggle icons -->
+     
+         <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
+
 
 <div class="container">
     <div class="row">
@@ -325,6 +332,9 @@ if (!empty($_POST['value']) && !empty($_POST['days'])) {
         </div>
     </div>
 </div>
+
+<!-- jQuery script for light/dark mode toggle -->
+<script src="/js/darkmode.js"></script>
 
 </body>
 </html>
