@@ -32,11 +32,11 @@ if ('PAYED' === $slot['status']) {
 
         if (false !== strpos($e->getMessage(), 'pending operations')) {
             $error = 'There are pending operation on that name (' . $slot['name'] . ') '
-            . ' <br/> This can be New name or edit name operation '
-            . ' <br/> Try to wait 10 min';
+                . ' <br/> This can be New name or edit name operation '
+                . ' <br/> Try to wait 10 min';
         } elseif (false !== strpos($e->getMessage(), 'this name tx is not yours')) {
             $error = 'This NVS was sent to address which is outside this exchange'
-            . ' <br/> You can\'t modify this record here';
+                . ' <br/> You can\'t modify this record here';
         } else {
             $error = $e->getMessage();
         }
@@ -57,68 +57,81 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible"   
-    content="IE=Edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
+        /* Laptops */
+        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
 
-       /* Laptops */
-       @media only screen and (min-width: 1025px) and (max-width: 1280px) {
-            
-            .btn-primary {
-               
-               cursor: pointer;
-    
-           }
-    
-           .btn-primary:hover {
-               background-color: #1F4E79;
-           }
-    
-           input:hover {
-                border: 3px solid slateblue;
-                border-radius: 6px;
-                 }
-
-           .btn-success:hover {
-
-                    background-color: chartreuse;
-                             }
-          .btn-danger:hover {
-
-                    background-color: firebrick;
-                           }           
-                  
-              }
-    
-              /* Desktops */
-            @media only screen and (min-width: 1281px) {
-                .btn-primary {
-               
-                cursor: pointer;
-    
+            input {
+                padding: 17px;
             }
-    
+
+            .btn-primary {
+
+                cursor: pointer;
+
+            }
+
             .btn-primary:hover {
                 background-color: #1F4E79;
             }
-             
+
             input:hover {
                 border: 3px solid slateblue;
                 border-radius: 6px;
-                 }
+            }
 
             .btn-success:hover {
 
-                  background-color: chartreuse;
-                     }
+                background-color: chartreuse;
+            }
+
             .btn-danger:hover {
 
-                  background-color: firebrick;
-                    }             
-          
-              }
+                background-color: firebrick;
+            }
+
+        }
+
+        /* Desktops */
+        @media only screen and (min-width: 1281px) {
+            input {
+                padding: 22px;
+            }
+
+            .btn-primary {
+
+                cursor: pointer;
+
+            }
+
+            .btn-primary:hover {
+                background-color: #1F4E79;
+            }
+
+            input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+            }
+
+            .btn-success:hover {
+
+                background-color: chartreuse;
+            }
+
+            .btn-danger:hover {
+
+                background-color: firebrick;
+            }
+
+        }
+
+        input {
+            padding: 10px;
+        }
+
         body {
             background-color: #367CA5;
             color: white;
@@ -139,7 +152,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
         .card {
             border: none;
             height: 100%;
-            
+
         }
 
         .copy-button {
@@ -184,7 +197,9 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             left: 2px;
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             color: #367CA5;
             font-size: 18px;
         }
@@ -215,11 +230,12 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             font-style: italic;
             font-size: 0.8em;
         }
-        
-        .name, .value {
-             color: black;
-             font-style: italic;
-             font-size: 0.8em;
+
+        .name,
+        .value {
+            color: black;
+            font-style: italic;
+            font-size: 0.8em;
         }
 
         .btn-primary {
@@ -230,15 +246,15 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             padding: 8px;
             margin-top: 0.5%;
             cursor: pointer;
-            
+
         }
 
         .btn-primary:active {
             background-color: #1B4F73;
         }
-        
+
         .copy-button:active {
-             background-color: lightgreen;
+            background-color: lightgreen;
         }
 
         .btn-success {
@@ -258,265 +274,242 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             padding: 8px 15px;
             cursor: pointer;
         }
-        
+
         .btn-danger:active {
-             background-color: lightcoral;
+            background-color: lightcoral;
         }
-        
+
         input {
-             border: 2px solid #367CA5;
-             outline-color: skyblue;
-             border-radius: 3px;
-             padding: 7px;
-             
+            border: 2px solid #367CA5;
+            outline-color: skyblue;
+            border-radius: 3px;
+            padding: 7px;
+
         }
-        
+
         .payment-success-msg {
-             color: #5cb85c;
-             font-style: italic;
-             font-weight: bold;
-             display: none;
+            color: #5cb85c;
+            font-style: italic;
+            font-weight: bold;
+            display: none;
         }
-        
+
         .tx-not-conf-yet-msg {
-             color: #d9534f;
-             font-style: italic;
-             font-weight: bold;
-             display: none;
+            color: #d9534f;
+            font-style: italic;
+            font-weight: bold;
+            display: none;
         }
-        
+
         .money-send-conf-form,
         .float-start,
         .deleting-slot-form {
-             display: none;
+            display: none;
         }
-        
+
         .display-payment-conf-nvs-created,
         .display-money-send-conf-form,
         .display-tx-not-conf-yet-msg,
         .display-money-send-conf-form,
         .display-deleting-slot-form {
-             display: block;
+            display: block;
         }
-        
     </style>
 
-    <link href="/css/darkmode.css"  rel="stylesheet"/>
+    <link href="/css/darkmode.css" rel="stylesheet" />
 
     <title>
-         Slot # <?= $slot['slot_id'] ?>
+        Slot # <?= $slot['slot_id'] ?>
     </title>
 </head>
 
 <body>
-     
-     <!-- Dark mode toggle icons -->
-     
-         <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
+
+    <!-- Dark mode toggle icons -->
+
+    <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
 
 
-<div class="container">
-   <div class="row">
-      <div class="col">
-           
-         <h1> 
-              <a href="/">
-                   &lt;&lt;&lt; GO BACK
-              </a> 
-          </h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
 
-            <a href="javascript:void(0)" onclick="CreateBookmarkLink()">
-                Bookmark page (press Ctrl+D to bookmark this page if link does not work)
-            </a> 
-            <br/><br/>
-            <div id="copy_url">
-                <a href="javascript:void(0)" onclick="copy('<?=$actual_link?>','#copy_url')" id="copy_url" >
-                    Copy link
-                </a> 
+                <h1>
+                    <a href="/">
+                        &lt;&lt;&lt; GO BACK
+                    </a>
+                </h1>
+
+                <a href="javascript:void(0)" onclick="CreateBookmarkLink()">
+                    Bookmark page (press Ctrl+D to bookmark this page if link does not work)
+                </a>
+                <br /><br />
+                <div id="copy_url">
+                    <a href="javascript:void(0)" onclick="copy('<?= $actual_link ?>','#copy_url')" id="copy_url">
+                        Copy link
+                    </a>
+                </div>
+                <?php if (!isset($result) || (false === $result)) : ?>
+
+                    <?php foreach ($slot['addr'] as $name => $addr) : ?>
+
+                        <h2>
+                            <b>
+                                <?= $addr['descr'] ?>
+                            </b>
+                            Send
+                            <?= $addr['min_sum'] ?>
+                            <?= $name ?> to:
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <span class="text-line me-2">
+                                    <?= $addr['addr'] ?>
+                                </span>
+
+                                <button onclick="copy('<?= $addr['addr'] ?>','#copy_button_<?= $name ?>')" id="copy_button_<?= $name ?>" class="btn btn-success copy-button">
+                                    Copy
+                                </button>
+                            </div>
+                        </h2>
+
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+
+                <?php if (isset($result) && $result && isset($slot['nvs'])) : ?>
+                    <h3>NAME: <br />
+                        <span class="name">
+                            <?= nl2br(htmlentities($slot['nvs']['name'])) ?>
+                        </span>
+                    </h3>
+                <?php else : ?>
+                    <h3>NAME: </br />
+                        <span class="name">
+                            <?= htmlentities($slot['name']) ?>
+                        </span>
+
+                    </h3>
+                <?php endif; ?>
+
+                <?php if (isset($result) && $result && isset($slot['nvs'])) : ?>
+                    <h3>VALUE: <br />
+                        <span class="value">
+                            <?= nl2br(htmlentities($slot['value'])) ?>
+                        </span>
+                    </h3>
+                <?php else : ?>
+                    <h3>VALUE: <br />
+                        <span class="value">
+                            <?= nl2br(htmlentities($slot['value'])) ?>
+                        </span>
+                    </h3>
+                <?php endif; ?>
+
+                <?php if (isset($result) && $result && isset($slot['nvs'])) : ?>
+                    <h3>Expires in: <br />
+                        <span class="value">
+                            <?= round($slot['nvs']['expires_in'] / 144) ?> days
+                        </span>
+                    </h3>
+                <?php else : ?>
+                    <h3>DAYS: <br />
+                        <span class="value">
+                            + <?= nl2br(htmlentities($slot['addr']['EMC']['days'])) ?>
+                        </span>
+                    </h3>
+                <?php endif; ?>
+
+                <div class="payment-success-msg <?php if (isset($result) && $result) : ?>display-payment-conf-nvs-created<?php endif; ?>" role="alert">
+                    Payment confirmed !
+                    <br>
+                    Name-Value record created or updated !
+                </div>
+
+
+                <form method="POST" class="money-send-conf-form <?php if (!isset($result) || (false === $result)) : ?>display-money-send-conf-form<?php endif; ?>">
+                    <input type="hidden" name="check" value="" />
+
+                    <button type="submit" class="btn btn-primary">
+                        Confirm money send
+                    </button>
+                </form>
+
+                <?php if (isset($result) && (false === $result) && (false !== $error)) : ?>
+                    <code style="color: red;">
+                        <?= $error ?>
+                    </code>
+                <?php endif; ?>
+
+                <div class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result) && (false === $error)) : ?>display-tx-not-conf-yet-msg<?php endif; ?>" role="alert">
+                    Transaction not confirmed yet !
+                </div>
+
+
+                <br>
+
+                <div class="deleting-slot-form <?php if (empty($result) && ('GENERATED' === $slot['status'])) : ?>display-deleting-slot-form<?php endif; ?>">
+                    <form method="POST" class="float-right">
+                        <input type="hidden" name="delete" value="" />
+                        <button type="submit" class="btn btn-danger">
+                            Delete slot (!)
+                        </button>
+                    </form>
+                </div>
+
+                <?php if (isset($result) && $result) : ?>
+                    <a class="btn btn-primary" href="/edit.php?slot=<?= $slot['slot_id'] ?>">
+                        Edit Name-Value record
+                    </a>
+                <?php endif; ?>
             </div>
-    <?php if (!isset($result) || (false === $result)): ?>
-            
-    <?php foreach ($slot['addr'] as $name => $addr): ?>
-    
-     <h2>
-           <b>
-             <?=$addr['descr']?>
-             </b> 
-             Send 
-             <?=$addr['min_sum']?>
-             <?=$name?> to:
-      <div 
-          class="d-flex justify-content-between align-items-center mb-3">
-         
-     <span class="text-line me-2">
-          <?=  $addr['addr'] ?>
-     </span>
-                    
-     <button 
-      onclick="copy('<?=  $addr['addr'] ?>','#copy_button_<?=$name?>')" 
-      id="copy_button_<?=$name?>" 
-      class="btn btn-success copy-button">
-     Copy
-     </button>
-     </div>
-  </h2>
-  
-    <?php endforeach; ?>
-
-    <?php endif; ?>
-
-    <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
-       <h3>NAME: <br/>
-         <span class="name">
-                <?= nl2br(htmlentities($slot['nvs']['name'])) ?>
-         </span>
-       </h3>
-       <?php else: ?>
-       <h3>NAME: </br/>
-          <span class="name">
-            <?= htmlentities($slot['name']) ?>
-          </span>
-       
-       </h3>
-        <?php endif; ?>
-       
-       <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
-       <h3>VALUE: <br/>
-         <span class="value">
-                <?= nl2br(htmlentities($slot['value'])) ?>
-         </span>
-       </h3>
-       <?php else: ?>
-       <h3>VALUE: <br/>
-         <span class="value">
-              <?= nl2br(htmlentities($slot['value'])) ?>
-         </span>
-       </h3>
-        <?php endif; ?>
-       
-       <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
-       <h3>Expires in: <br/>
-         <span class="value">
-                <?=round($slot['nvs']['expires_in']/144)?> days
-         </span>
-       </h3>
-       <?php else: ?>
-       <h3>DAYS: <br/>
-         <span class="value">
-                + <?= nl2br(htmlentities($slot['addr']['EMC']['days'])) ?>
-         </span>
-       </h3>
-        <?php endif; ?>
-
-            <div 
-              class="payment-success-msg <?php if (isset($result) && $result): ?>display-payment-conf-nvs-created<?php endif; ?>"
-              role="alert">
-              Payment confirmed !    
-                 <br>
-               Name-Value record created or updated !
-            </div>
-                    
-                    
-<form method="POST" class="money-send-conf-form <?php if (!isset($result) || (false === $result)): ?>display-money-send-conf-form<?php endif; ?>">
-      <input 
-         type="hidden" 
-         name="check" 
-         value="" 
-         />
-      
-   <button 
-     type="submit" 
-     class="btn btn-primary">
-     Confirm money send
-   </button>
-</form>
-
-    <?php if (isset($result) && (false === $result) && (false !== $error)): ?>
-        <code style="color: red;">
-        <?=$error?>
-        </code>
-    <?php endif; ?>
-                    
-       <div 
-        class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result) && (false === $error)): ?>display-tx-not-conf-yet-msg<?php endif; ?>"
-        role="alert">       
-        Transaction not confirmed yet !
-       </div>
-                    
-
-<br>
-
-  <div class="deleting-slot-form <?php if (empty($result) && ('GENERATED' === $slot['status'])): ?>display-deleting-slot-form<?php endif; ?>">
-   <form method="POST"
-       class="float-right">
-       <input 
-         type="hidden" 
-         name="delete" 
-         value="" 
-         />
-        <button 
-         type="submit" 
-         class="btn btn-danger">
-         Delete slot (!)
-        </button>
-     </form>
-    </div>
-
-    <?php if (isset($result) && $result): ?>
-        <a 
-            class="btn btn-primary"
-            href="/edit.php?slot=<?= $slot['slot_id'] ?>">
-            Edit Name-Value record
-        </a>
-    <?php endif; ?>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    function copy(text, target) {
-        setTimeout(function() {
-            $('#copied_tip').remove();
-        }, 800);
-        $(target).append("<div class='tip' id='copied_tip'>Copied!</div>");
-        var input = document.createElement('input');
-        input.setAttribute('value', text);
-        document.body.appendChild(input);
-        input.select();
-        var result = document.execCommand('copy');
-        document.body.removeChild(input)
-        return result;
-    }
-
-    function CreateBookmarkLink() {
-
-        title = "NVS exchange"; 
-        //or title = document.title
-
-        url = "<?=$actual_link?>";
-        //or url = location.href
-
-        if (window.sidebar) { // Mozilla Firefox Bookmark
-            window.sidebar.addPanel(title, url,"");
-        } else if( window.external && window.external.AddFavorite ) { // IE Favorite
-            window.external.AddFavorite( url, title); 
+    <script type="text/javascript">
+        function copy(text, target) {
+            setTimeout(function() {
+                $('#copied_tip').remove();
+            }, 800);
+            $(target).append("<div class='tip' id='copied_tip'>Copied!</div>");
+            var input = document.createElement('input');
+            input.setAttribute('value', text);
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand('copy');
+            document.body.removeChild(input)
+            return result;
         }
 
-    }
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous">
-</script>
+        function CreateBookmarkLink() {
 
-<!-- jQuery script for light/dark mode toggle -->
-<script src="/js/darkmode.js"></script>
+            title = "NVS exchange";
+            //or title = document.title
 
-<?php if (!empty($_COOKIE['darkmode'])): ?>
-<script type="text/javascript">
-$(document).ready(function () {
-    $(".toggle-icon").trigger("click")
-})
-</script>
+            url = "<?= $actual_link ?>";
+            //or url = location.href
+
+            if (window.sidebar) { // Mozilla Firefox Bookmark
+                window.sidebar.addPanel(title, url, "");
+            } else if (window.external && window.external.AddFavorite) { // IE Favorite
+                window.external.AddFavorite(url, title);
+            }
+
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous">
+    </script>
+
+    <!-- jQuery script for light/dark mode toggle -->
+    <script src="/js/darkmode.js"></script>
+
+<?php if (!isset($_COOKIE['darkmode']) || (1 == $_COOKIE['darkmode'])) : ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".toggle-icon").trigger("click")
+        })
+    </script>
 <?php endif; ?>
 
 </body>
+
 </html>

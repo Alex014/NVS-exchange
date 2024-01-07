@@ -14,7 +14,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
     $value = $_POST['value'];
     $address = $_POST['address'];
     $days = (int)$_POST['days'];
-    
+
     if ($days < 100) {
         $days = 100;
     }
@@ -38,9 +38,8 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             $error = 'db';
         } else {
             $slot_id = $slots->createSlot($_POST['name'], $_POST['value'], $_POST['address'], (int) $_POST['days']);
-            header('location: /slot.php?slot=' . $slot_id );
+            header('location: /slot.php?slot=' . $slot_id);
         }
-
     }
 } else {
     $name = '';
@@ -51,54 +50,70 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Emercoin Name-Value Exchange</title>
-    
+
     <!-- Custom CSS for appealing UI -->
     <style>
-       
-       /* Laptops */
-       @media only screen and (min-width: 1025px) and (max-width: 1280px) {
-            
-            .btn-primary {
-               
-               cursor: pointer;
-    
-           }
-    
-           .btn-primary:hover {
-               background-color: #1F4E79;
-           }
-    
-           input:hover {
-                border: 3px solid slateblue;
-                border-radius: 6px;
-                 }
-                  
-              }
-    
-              /* Desktops */
-            @media only screen and (min-width: 1281px) {
-                .btn-primary, .btn-success, .btn-danger, .copy-button {
-               
-                cursor: pointer;
-    
+        /* Laptops */
+        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+
+            input {
+                padding: 17px;
             }
-    
+
+            .btn-primary {
+
+                cursor: pointer;
+
+            }
+
             .btn-primary:hover {
                 background-color: #1F4E79;
             }
-             
+
             input:hover {
                 border: 3px solid slateblue;
                 border-radius: 6px;
-                 }
-          
-              }
+            }
+
+        }
+
+        /* Desktops */
+        @media only screen and (min-width: 1281px) {
+            input {
+                padding: 22px;
+            }
+
+            .btn-primary,
+            .btn-success,
+            .btn-danger,
+            .copy-button {
+
+                cursor: pointer;
+
+            }
+
+            .btn-primary:hover {
+                background-color: #1F4E79;
+            }
+
+            input:hover {
+                border: 3px solid slateblue;
+                border-radius: 6px;
+            }
+
+        }
+
+        input {
+            padding: 10px;
+        }
+
         body {
             background-color: #367CA5;
             color: white;
@@ -121,8 +136,8 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             margin-top: 6%;
             margin-left: 6%;
         }
-        
-        
+
+
 
         .btn-primary {
             background-color: #367CA5;
@@ -138,11 +153,12 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
         .btn-primary:active {
             background-color: #1B4F73;
         }
-        
- 
-      
-        
-        h1, h3 {
+
+
+
+
+        h1,
+        h3 {
             color: #367CA5;
             text-align: center;
         }
@@ -157,227 +173,179 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             width: 90%;
             max-width: 500px;
         }
-        
+
         input {
-             padding: 6px;
+            padding: 6px;
         }
-        
+
 
         .form-text {
             color: #1B4F73;
             font-size: 10px;
             margin-left: 7%;
         }
-        
+
         textarea {
-           
-           outline-color: skyblue;
+
+            outline-color: skyblue;
         }
-        
+
         .alert {
-             color: red;
-             font-size: medium;
-             font-weight: bold;
-             display: none;
+            color: red;
+            font-size: medium;
+            font-weight: bold;
+            display: none;
         }
-        
-        .nvs-show-alert, .db-show-alert {
-             display: block;
+
+        .nvs-show-alert,
+        .db-show-alert {
+            display: block;
         }
-        
+
         .result {
             color: green;
         }
     </style>
 
-    <link href="/css/darkmode.css"  rel="stylesheet"/>
+    <link href="/css/darkmode.css" rel="stylesheet" />
 </head>
+
 <body>
-     
-     <!-- Dark mode toggle icons -->
-     
-         <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1>NVS Exchange</h1>
-            <h3>Emercoin (EMC) and Privateness (NESS or NCH) to NVS</h3>
+    <!-- Dark mode toggle icons -->
 
-  <form method="POST">
-    <div class="mb-3">
-         <label 
-          for="name"     
-          class="form-label">
-          Name:
-         </label><br>
-         
-   <input 
-    
-    type="name" 
-    class="form-control" 
-    id="name" 
-    name="name" 
-    value="<?=$name?>" 
-    placeholder=" dns:ness.bts" 
-    required>
-                   
-                   
-      <div 
-        id="nameHelp" 
-        class="form-text">
-        Enter desired or requested NVS name
-      </div>
-   </div>
+    <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>NVS Exchange</h1>
+                <h3>Emercoin (EMC) and Privateness (NESS or NCH) to NVS</h3>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            Name:
+                        </label><br>
+
+                        <input type="name" class="form-control" id="name" name="name" value="<?= $name ?>" placeholder=" dns:ness.bts" required>
 
 
-    <div class="mb-3">
-         <label 
-          for="days"     
-          class="form-label">
-          Days:
-         </label><br>
-         
-   <input 
-    
-    type="number" 
-    class="form-control" 
-    id="days" 
-    name="days" 
-    value="<?=$days?>" 
-    min="100"
-    required>
-                   
-                   
-      <div 
-        id="nameHelp" 
-        class="form-text">
-        Days (amount of days to store your NVS record):
-      </div>
-   </div>
-
-    <div class="mb-3">
-         <label 
-          for="name"     
-          class="form-label">
-          Address (optional):
-         </label><br>
-         
-   <input 
-    
-    type="text" 
-    class="form-control" 
-    id="address" 
-    name="address" 
-    value="<?=$address?>">
-                   
-                   
-      <div 
-        id="nameHelp" 
-        class="form-text">
-        Enter your emercoin address (if you want to export this NVS to outer wallet)
-      </div>
-   </div>
-               
-      <div class="mb-3">
-         <label 
-           for="value" 
-           class="form-label">
-           Value:
-         </label><br>
-         
-   <textarea 
-     name="value" 
-     id="value" 
-     class="form-control" 
-     cols="25" 
-     rows="6" 
-     placeholder="A=127.0.0.1|NS=seed1.emercoin.com,seed2.emercoin.com" 
-     required><?=$value?></textarea>
-   
-   
-       <div 
-         id="valueHelp" 
-         class="form-text">
-         Enter desired or requested NVS Value</div>
-     </div>
-            
-     <button 
-       type="submit" 
-       class="btn btn-primary">
-       Create payment slot
-     </button>
-</form> <br>
-
-<!-- Alert Messages are hidden in CSS by default -->
+                        <div id="nameHelp" class="form-text">
+                            Enter desired or requested NVS name
+                        </div>
+                    </div>
 
 
-<?php if ('nvs' === $error): ?>
+                    <div class="mb-3">
+                        <label for="days" class="form-label">
+                            Days:
+                        </label><br>
 
-    <div class="alert alert-danger
-     <?php if ('nvs' === $error) 
-      echo 'nvs-show-alert'; ?>" 
-        role="alert">
-        
-        NVS with the name 
-        <b><?=htmlentities($name)?></b>     
-        Already exists. 
-    </div><br>
-    
-<?php elseif ('db' === $error): ?>
-
-    <div
-     class="alert alert-danger 
-     <?php if ('db' === $error) echo 'db-show-alert'; ?>" 
-        role="alert">
-        
-        Slot with the name 
-        <b><?=htmlentities($name)?></b>  
-        Already exists. 
-        <br> 
-        You can't pay it here! 
-  
-        <a  
-            href="/slot.php?slot=<?=$slot['slot_id']?>"> 
-            <?=$slot['slot_id']?> 
-        </a> 
-    </div> 
-<?php endif; ?>
+                        <input type="number" class="form-control" id="days" name="days" value="<?= $days ?>" min="100" required>
 
 
-<?php if (isset($_GET['msg']) && ('deleted' === $_GET['msg'])): ?>
+                        <div id="nameHelp" class="form-text">
+                            Days (amount of days to store your NVS record):
+                        </div>
+                    </div>
 
-    <?php
-        $name = '';
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            Address (optional):
+                        </label><br>
 
-        if (isset($_GET['name'])) {
-            $name = $_GET['name'];
-        }
-    ?>
+                        <input type="text" class="form-control" id="address" name="address" value="<?= $address ?>">
 
-    <h3 class='result'>
-        Name-Value record <code><?=htmlentities($name)?></code> deleted
-    </h3>
-    
-<?php endif; ?>
 
+                        <div id="nameHelp" class="form-text">
+                            Enter your emercoin address (if you want to export this NVS to outer wallet)
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="value" class="form-label">
+                            Value:
+                        </label><br>
+
+                        <textarea name="value" id="value" class="form-control" cols="25" rows="6" placeholder="A=127.0.0.1|NS=seed1.emercoin.com,seed2.emercoin.com" required><?= $value ?></textarea>
+
+
+                        <div id="valueHelp" class="form-text">
+                            Enter desired or requested NVS Value</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Create payment slot
+                    </button>
+                </form> <br>
+
+                <!-- Alert Messages are hidden in CSS by default -->
+
+
+                <?php if ('nvs' === $error) : ?>
+
+                    <div class="alert alert-danger
+     <?php if ('nvs' === $error)
+                        echo 'nvs-show-alert'; ?>" role="alert">
+
+                        NVS with the name
+                        <b><?= htmlentities($name) ?></b>
+                        Already exists.
+                    </div><br>
+
+                <?php elseif ('db' === $error) : ?>
+
+                    <div class="alert alert-danger 
+     <?php if ('db' === $error) echo 'db-show-alert'; ?>" role="alert">
+
+                        Slot with the name
+                        <b><?= htmlentities($name) ?></b>
+                        Already exists.
+                        <br>
+                        You can't pay it here!
+
+                        <a href="/slot.php?slot=<?= $slot['slot_id'] ?>">
+                            <?= $slot['slot_id'] ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+
+
+                <?php if (isset($_GET['msg']) && ('deleted' === $_GET['msg'])) : ?>
+
+                    <?php
+                    $name = '';
+
+                    if (isset($_GET['name'])) {
+                        $name = $_GET['name'];
+                    }
+                    ?>
+
+                    <h3 class='result'>
+                        Name-Value record <code><?= htmlentities($name) ?></code> deleted
+                    </h3>
+
+                <?php endif; ?>
+
+            </div>
         </div>
     </div>
-</div>
 
-<!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<!-- jQuery script for light/dark mode toggle -->
-<script src="/js/darkmode.js"></script>
+    <!-- jQuery script for light/dark mode toggle -->
+    <script src="/js/darkmode.js"></script>
 
-<?php if (!empty($_COOKIE['darkmode'])): ?>
-<script type="text/javascript">
-$(document).ready(function () {
-    $(".toggle-icon").trigger("click")
-})
-</script>
-<?php endif; ?>
+    <?php if (!isset($_COOKIE['darkmode']) || (1 == $_COOKIE['darkmode'])) : ?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".toggle-icon").trigger("click")
+            })
+        </script>
+    <?php endif; ?>
 
 </body>
+
 </html>
