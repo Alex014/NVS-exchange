@@ -40,7 +40,7 @@ class JsonRpcClient {
 	 *
 	 * @var boolean
 	 */
-	private $debug;
+	public static $debug;
 	
 	/**
 	 * The server URL
@@ -67,11 +67,9 @@ class JsonRpcClient {
 	 * @param string $url
 	 * @param boolean $debug
 	 */
-	public function __construct($url,$debug = false) {
+	public function __construct($url) {
 		// server URL
 		$this->url = $url;
-		// debug state
-		empty($debug) ? $this->debug = false : $this->debug = true;
 		// message id
 		$this->id = rand(1, 99999);
 	}
@@ -126,7 +124,7 @@ class JsonRpcClient {
                 );
                 
 		// debug output
-                if($this->debug) {
+                if(self::$debug) {
                     self::$output[] = '';
                     self::$output[] = '***** Request *****';
                     self::$output[] = print_r($request, true);
@@ -155,17 +153,27 @@ class JsonRpcClient {
     }
     
 		$responce = json_decode($responce,true);
-		//var_dump($responce);
 		curl_close($ch);
 		
 		// final checks and return
 		if (!$this->notification) {
 			// check
 			if ($responce['id'] != $currentId) {
+				if (self::$debug) {
+					print_r($this->url);
+					print_r(self::$output);
+				}
+
 				throw new \Exception('Incorrect response id (request id: '.$currentId.', response id: '.$responce['id'].')');
 			}
 			if (!is_null($responce['error'])) {
-        jsonRPCClient::$error = $responce['error'];
+        		jsonRPCClient::$error = $responce['error'];
+
+				if (self::$debug) {
+					print_r($this->url);
+					print_r(self::$output);
+				}
+
 				throw new \Exception('Request error: '.$responce['error']['message']);
 			}
 			

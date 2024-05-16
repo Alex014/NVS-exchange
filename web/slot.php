@@ -20,13 +20,27 @@ if (empty($slot)) {
     die('Slot not found');
 }
 
+$outer_address = isset($slot['address']) && $slots->isMyAddress($slot['address']);
+$info = "";
+
 if ('PAYED' === $slot['status']) {
-    $result = true;
+    // Address check ...
+    if ($outer_address) {
+        $result = false;
+        $error = false;
+        $info = "The NVS record has been moved to outer wallet (address: $slot[address])";
+    } else {
+        $result = true;
+    }
 } elseif (isset($_POST["check"])) {
     $error = false;
 
     try {
         $result = $slots->processSlot($_GET['slot']);
+
+        if( !$result ) {
+            $error = "Transaction not confirmed yet !";
+        }
     } catch (Exception $e) {
         $result = false;
 
@@ -299,6 +313,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             font-style: italic;
             font-weight: bold;
             display: none;
+            padding-top: 20px;
         }
 
         .money-send-conf-form,
@@ -349,7 +364,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                         Copy link
                     </a>
                 </div>
-                <?php if (!isset($result) || (false === $result)) : ?>
+                <?php if ( (!isset($result) || (false === $result)) && !$outer_address ): ?>
 
                     <?php foreach ($slot['addr'] as $name => $addr) : ?>
 
@@ -426,7 +441,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                 </div>
 
 
-                <form method="POST" class="money-send-conf-form <?php if (!isset($result) || (false === $result)) : ?>display-money-send-conf-form<?php endif; ?>">
+                <form method="POST" class="money-send-conf-form <?php if ( (!isset($result) || (false === $result)) && !$outer_address ) : ?>display-money-send-conf-form<?php endif; ?>">
                     <input type="hidden" name="check" value="" />
 
                     <button type="submit" class="btn btn-primary">
@@ -436,12 +451,13 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 
                 <?php if (isset($result) && (false === $result) && (false !== $error)) : ?>
                     <code style="color: red;">
+                        <br/>
                         <?= $error ?>
                     </code>
                 <?php endif; ?>
 
                 <div class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result) && (false === $error)) : ?>display-tx-not-conf-yet-msg<?php endif; ?>" role="alert">
-                    Transaction not confirmed yet !
+                    <?=$info?>
                 </div>
 
 

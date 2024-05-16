@@ -131,6 +131,16 @@ class Slots {
         }
     }
 
+    public function isMyAddress(string $addr): bool
+    {
+        try {
+            Emercoin::getRecievedByAddress($addr);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     public function lastSlotTime()
     {
         $last = $this->db->getLastSlot();
