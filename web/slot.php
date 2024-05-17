@@ -59,9 +59,17 @@ if ('PAYED' === $slot['status']) {
     $result = $slots->deleteSlot($_GET['slot']);
     header('location: /?msg=deleted&name=' . urlencode($slot['name']));
     die();
+} else {
+    // ...
 }
 
 $slot = $slots->showSlot($_GET['slot']);
+
+$show_payments = ('GENERATED' === $slot['status']) || ('UPDATED' === $slot['status']);
+
+$allow_edit = ('PAYED' === $slot['status']) && !$outer_address;
+
+$allow_delete = empty($result) && ('GENERATED' === $slot['status']);
 
 $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
@@ -364,7 +372,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                         Copy link
                     </a>
                 </div>
-                <?php if ( (!isset($result) || (false === $result)) && !$outer_address ): ?>
+                <?php if ( !isset($result) || (false === $result) ): ?>
 
                     <?php foreach ($slot['addr'] as $name => $addr) : ?>
 
@@ -463,7 +471,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 
                 <br>
 
-                <div class="deleting-slot-form <?php if (empty($result) && ('GENERATED' === $slot['status'])) : ?>display-deleting-slot-form<?php endif; ?>">
+                <div class="deleting-slot-form <?php if ($allow_delete) : ?>display-deleting-slot-form<?php endif; ?>">
                     <form method="POST" class="float-right">
                         <input type="hidden" name="delete" value="" />
                         <button type="submit" class="btn btn-danger">
@@ -472,7 +480,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                     </form>
                 </div>
 
-                <?php if (isset($result) && $result) : ?>
+                <?php if ($allow_edit) : ?>
                     <a class="btn btn-primary" href="/edit.php?slot=<?= $slot['slot_id'] ?>">
                         Edit Name-Value record
                     </a>
