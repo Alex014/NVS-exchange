@@ -324,20 +324,37 @@ if ('generated' === $status) {
             </form>
             
         <!-- Loop through addresses to send money to -->
-   <?php foreach ($slot['addr'] as $name => $addr): ?>
-            <h2 class="h2 <?php if ($active && 'generated' === $status): ?>h2-shown<?php endif; ?>">
-                <b><?= $addr['descr'] ?></b> Send <?= $addr['min_sum'] ?> <?= $name ?> to:
-                <div class="d-flex mb-3">
-                    <span class="text-line me-2"><?= $addr['addr'] ?> 
-                    </span>
-                   <button 
-    onclick="copy('<?= $addr['addr'] ?>','#copy_button_<?= $name ?>')" 
-    id="copy_button_<?= $name ?>" class="btn btn-sm btn-success copy-button">
-    Copy
-                   </button>
-                </div>
-            </h2>
-   <?php endforeach; ?>
+        <?php foreach ($slot['addr'] as $name => $addr): ?>
+  <h2 class="h2 <?php if ($active && 'generated' === $status): ?>h2-shown<?php endif; ?>">
+    <b><?= $addr['descr'] ?></b> Send <?= $addr['min_sum'] ?> <?= $name ?> to:
+    <div class="d-flex mb-3">
+      <span class="text-line me-2"><?= $addr['addr'] ?> 
+      </span>
+      <button 
+        onclick="copy('<?= $addr['addr'] ?>','#copy_button_<?= $name ?>')" 
+        id="copy_button_<?= $name ?>" class="btn btn-sm btn-success copy-button">
+        Copy
+      </button>
+      <div class="qr-code-container">
+        <canvas id="qr-code-<?= $name ?>" width="100" height="100"></canvas>
+        <span class="qr-code-label"><?= $name ?></span>
+      </div>
+    </div>
+  </h2>
+
+  <script>
+    $(document).ready(function() {
+      var qrCode = new QRCode(document.getElementById("qr-code-<?= $name ?>"), {
+        text: "<?= $addr['addr'] ?>",
+        width: 100,
+        height: 100,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    });
+  </script>
+<?php endforeach; ?>
             
             <?php endif; ?>
             
