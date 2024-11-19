@@ -12,6 +12,7 @@ $(document).ready(function () {
         $(".text-line").toggleClass("dark-mode");
         $(".name").toggleClass("dark-mode");
         $(".value").toggleClass("dark-mode");
+        $(".header").toggleClass("dark-mode");
         // Change icon based on mode
         var iconPath = $("body").hasClass("dark-mode") ? "/img/light-mode.png" : "/img/dark-mode.png";
         $(".toggle-icon").attr("src", iconPath);

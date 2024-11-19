@@ -83,259 +83,316 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
-        /* Laptops */
-        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+        /* Modern Reset and Base Styles */
+        :root {
+            /* Color Palette */
+            --primary-color: #367CA5;
+            --secondary-color: #1B4F73;
+            --accent-color: #4CAF50;
+            --error-color: #FF5A5A;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --white: #FFFFFF;
+            --light-gray: #f9f9f9;
+            --border-color: #e0e0e0;
 
-            input {
-                padding: 17px;
-            }
-
-            .btn-primary {
-
-                cursor: pointer;
-
-            }
-
-            .btn-primary:hover {
-                background-color: #1F4E79;
-            }
-
-            input:hover {
-                border: 3px solid slateblue;
-                border-radius: 6px;
-            }
-
-            .btn-success:hover {
-
-                background-color: chartreuse;
-            }
-
-            .btn-danger:hover {
-
-                background-color: firebrick;
-            }
-
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+            /* Shadows and Transitions */
+            --shadow-subtle: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-medium: 0 10px 25px rgba(0,0,0,0.15);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* Desktops */
-        @media only screen and (min-width: 1281px) {
-            input {
-                padding: 22px;
-            }
-
-            .btn-primary {
-
-                cursor: pointer;
-
-            }
-
-            .btn-primary:hover {
-                background-color: #1F4E79;
-            }
-
-            input:hover {
-                border: 3px solid slateblue;
-                border-radius: 6px;
-            }
-
-            .btn-success:hover {
-
-                background-color: chartreuse;
-            }
-
-            .btn-danger:hover {
-
-                background-color: firebrick;
-            }
-
-        }
-
-        input {
-            padding: 10px;
-        }
-
-        body {
-            background-color: #367CA5;
-            color: white;
-            font-family: Arial, sans-serif;
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--primary-color);
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        /* Container Styles */
         .container {
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 85%;
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card {
-            border: none;
-            height: 100%;
-
-        }
-
-        .copy-button {
-            height: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            max-width : 600px;
+            margin: 2rem auto;
+            background-color: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-medium);
+            padding: 2.5rem;
             position: relative;
         }
 
-        .tip {
-            background-color: #263646;
-            padding: 0 14px;
-            line-height: 27px;
-            position: absolute;
-            border-radius: 4px;
-            z-index: 100;
-            color: #fff;
-            font-size: 12px;
-            animation-name: tip;
-            animation-duration: 0.6s;
-            animation-fill-mode: both;
-        }
-
-        .tip:before {
-            content: "";
-            background-color: #263646;
-            height: 10px;
-            width: 10px;
+        /* Back Link Styles */
+        .back-link {
             display: block;
-            position: absolute;
-            transform: rotate(45deg);
-            top: -4px;
-            left: 17px;
+            text-align: left;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        #copied_tip {
-            animation-name: come_and_leave;
-            animation-duration: 1s;
-            animation-fill-mode: both;
-            bottom: -35px;
-            left: 2px;
+        h2, h3, .bookmark {
+            font-size: 10pt;
         }
 
-        h1,
-        h2,
-        h3 {
-            color: #367CA5;
-            font-size: 18px;
-        }
-
-        .d-flex {
+        .eddit-NVS {
             display: flex;
+            text-align: center;
+            justify-content: center;
+            text-decoration: none;
         }
 
-        .justify-content-between {
-            justify-content: space-between;
-        }
-
-        .align-items-center {
-            align-items: center;
-        }
-
-        .mb-3 {
-            margin-bottom: 20px;
-        }
-
-        .me-2 {
-            margin-right: 0.5rem;
-        }
-
-        .text-line {
+        .back-link:hover {
             text-decoration: underline;
-            color: black;
-            font-style: italic;
-            font-size: 0.8em;
         }
 
-        .name,
-        .value {
-            color: black;
-            font-style: italic;
-            font-size: 0.8em;
+        /* Form Group Styles */
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
         }
 
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            outline: none;
+            transition: var(--transition-smooth);
+            font-size: 16px;
+        }
+
+        .form-label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-58%);
+            color: #999;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+            background-color: var(--white);
+            padding: 0 6px;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(54, 124, 165, 0.1);
+        }
+
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -10px;
+            left: 1px;
+            font-size: 12px;
+            color: var(--primary-color);
+            padding: 0 5% 0 5%;
+        }
+
+        .form-text {
+            margin-top: -0.2rem;
+            font-size: 0.7rem;
+            color: var(--text-color);
+        }
+
+        /* Button Styles */
         .btn-primary {
-            background-color: #367CA5;
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: var(--white);
             border: none;
-            color: white;
-            border-radius: 5px;
-            padding: 8px;
-            margin-top: 0.5%;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-
+            transition: var(--transition-smooth);
         }
 
-        .btn-primary:active {
-            background-color: #1B4F73;
+        /* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition-smooth);
+    font-size: 14px;
+}
+
+.btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-subtle);
         }
 
-        .copy-button:active {
-            background-color: lightgreen;
+        /* Alert Styles */
+        .alert {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            background-color: rgba(255, 90, 90, 0.1);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
         }
 
-        .btn-success {
-            background-color: #5cb85c;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            padding: 8px 15px;
-            cursor: pointer;
+        .result {
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 1rem;
         }
 
-        .btn-danger {
-            background-color: #d9534f;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            padding: 8px 15px;
-            cursor: pointer;
-        }
+        /* Display Classes */
+.money-send-conf-form,
+.float-start,
+.deleting-slot-form {
+    display: none;
+}
 
-        .btn-danger:active {
-            background-color: lightcoral;
-        }
+.display-payment-conf-nvs-created,
+.display-money-send-conf-form,
+.display-tx-not-conf-yet-msg,
+.display-deleting-slot-form {
+    display: block;
+}
 
-        input {
-            border: 2px solid #367CA5;
-            outline-color: skyblue;
-            border-radius: 3px;
-            padding: 7px;
+.tx-not-conf-yet-msg {
+    color: var(--error-color);
+    font-style: italic;
+    font-weight: bold;
+    display: none;
+    padding-top: 20px;
+}
 
-        }
+.copy-button {
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: var(--accent-color);
+    border: none;
+    color: var(--white);
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    font-size: 12px;
+}
 
-        .payment-success-msg {
+.copy-button:hover {
+    background-color: chartreuse;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-subtle);
+}
+
+.copy-button:active {
+    background-color: lightgreen;
+}
+
+/* Delete Slot Button Styles */
+.btn-danger {
+    background-color: var(--error-color);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-danger:hover {
+    background-color: firebrick;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-subtle);
+}
+
+.btn-danger:active {
+    background-color: lightcoral;
+}
+
+.payment-success-msg {
             color: #5cb85c;
             font-style: italic;
             font-weight: bold;
             display: none;
         }
 
-        .tx-not-conf-yet-msg {
-            color: #d9534f;
+
+.name,
+.value {
+            color: black;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+        }
+
+/* Tip Styles (for copy button) */
+.tip {
+    background-color: #263646;
+    padding: 0 14px;
+    line-height: 27px;
+    position: absolute;
+    border-radius: 4px;
+    z-index: 100;
+    color: #fff;
+    font-size: 12pt;
+    animation-name: tip;
+    animation-duration: 0.6s;
+    animation-fill-mode: both;
+}
+
+.tip:before {
+    content: "";
+    background-color: #263646;
+    height: 10px;
+    width: 10px;
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+    top: -4px;
+    left: 17px;
+}
+
+#copied_tip {
+    animation-name: come_and_leave;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    bottom: -35px;
+    left: 2px;
+}
+
+.text-line {
+            text-decoration: underline;
+            color: black;
             font-style: italic;
-            font-weight: bold;
-            display: none;
-            padding-top: 20px;
+            font-size: 10pt;
         }
 
-        .money-send-conf-form,
-        .float-start,
-        .deleting-slot-form {
-            display: none;
-        }
 
-        .display-payment-conf-nvs-created,
-        .display-money-send-conf-form,
-        .display-tx-not-conf-yet-msg,
-        .display-money-send-conf-form,
-        .display-deleting-slot-form {
-            display: block;
+.back-link {
+    font-size: 14px;
+}
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+                width: calc(100% - 2rem);
+                border-radius: 12px;
+            }
         }
     </style>
 
@@ -349,21 +406,19 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 <body>
 
     <!-- Dark mode toggle icons -->
-
-    <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png">
-
+    <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png" >
 
     <div class="container">
         <div class="row">
             <div class="col">
 
                 <h1>
-                    <a href="/">
+                    <a href="/" class="back-link">
                         &lt;&lt;&lt; GO BACK
                     </a>
                 </h1>
 
-                <a href="javascript:void(0)" onclick="CreateBookmarkLink()">
+                <a href="javascript:void(0)" onclick="CreateBookmarkLink()" class="bookmark">
                     Bookmark page (press Ctrl+D to bookmark this page if link does not work)
                 </a>
                 <br /><br />
@@ -372,21 +427,21 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                         Copy link
                     </a>
                 </div>
-                <?php if ( !isset($result) || (false === $result) ): ?>
+                <?php if (!isset($result) || (false === $result)): ?>
 
-                    <?php foreach ($slot['addr'] as $name => $addr) : ?>
+                    <?php foreach ($slot['addr'] as $name => $addr): ?>
 
                         <h2>
                             <b>
-                                <?= $addr['descr'] ?>
+                                <?= $addr['descr'] ?> 
                             </b>
-                            Send
-                            <?= $addr['min_sum'] ?>
-                            <?= $name ?> to:
+                            SEND
+                            <?= $addr['min_sum'] ?> 
+                            <?= $name ?> TO:
                             <div class="d-flex justify-content-between align-items-center mb-3">
 
                                 <span class="text-line me-2">
-                                    <?= $addr['addr'] ?>
+                                    <?= $addr['addr'] ?> 
                                 </span>
 
                                 <button onclick="copy('<?= $addr['addr'] ?>','#copy_button_<?= $name ?>')" id="copy_button_<?= $name ?>" class="btn btn-success copy-button">
@@ -399,57 +454,55 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 
                 <?php endif; ?>
 
-                <?php if (isset($result) && $result && isset($slot['nvs'])) : ?>
+                <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
                     <h3>NAME: <br />
                         <span class="name">
-                            <?= nl2br(htmlentities($slot['nvs']['name'])) ?>
+                            <?= nl2br(htmlentities($slot['nvs']['name'])) ?> 
                         </span>
                     </h3>
-                <?php else : ?>
-                    <h3>NAME: </br />
+                <?php else: ?>
+                    <h3>NAME: <br />
                         <span class="name">
-                            <?= htmlentities($slot['name']) ?>
-                        </span>
-
-                    </h3>
-                <?php endif; ?>
-
-                <?php if (isset($result) && $result && isset($slot['nvs'])) : ?>
-                    <h3>VALUE: <br />
-                        <span class="value">
-                            <?= nl2br(htmlentities($slot['value'])) ?>
-                        </span>
-                    </h3>
-                <?php else : ?>
-                    <h3>VALUE: <br />
-                        <span class="value">
-                            <?= nl2br(htmlentities($slot['value'])) ?>
+                            <?= htmlentities($slot['name']) ?> 
                         </span>
                     </h3>
                 <?php endif; ?>
 
-                <?php if (isset($result) && $result && isset($slot['nvs'])) : ?>
+                <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
+                    <h3>VALUE: <br />
+                        <span class="value">
+                            <?= nl2br(htmlentities($slot['value'])) ?> 
+                        </span>
+                    </h3>
+                <?php else: ?>
+                    <h3>VALUE: <br />
+                        <span class="value">
+                            <?= nl2br(htmlentities($slot['value'])) ?> 
+                        </span>
+                    </h3>
+                <?php endif; ?>
+
+                <?php if (isset($result) && $result && isset($slot['nvs'])): ?>
                     <h3>Expires in: <br />
                         <span class="value">
                             <?= round($slot['nvs']['expires_in'] / 144) ?> days
                         </span>
                     </h3>
-                <?php else : ?>
+                <?php else: ?>
                     <h3>DAYS: <br />
                         <span class="value">
-                            + <?= nl2br(htmlentities($slot['addr']['EMC']['days'])) ?>
+                            + <?= nl2br(htmlentities($slot['addr']['EMC']['days'])) ?> 
                         </span>
                     </h3>
                 <?php endif; ?>
 
-                <div class="payment-success-msg <?php if (isset($result) && $result) : ?>display-payment-conf-nvs-created<?php endif; ?>" role="alert">
+                <div class="payment-success-msg <?php if (isset($result) && $result): ?>display-payment-conf-nvs-created<?php endif; ?>" role="alert">
                     Payment confirmed !
                     <br>
                     Name-Value record created or updated !
                 </div>
 
-
-                <form method="POST" class="money-send-conf-form <?php if ( (!isset($result) || (false === $result)) && !$outer_address ) : ?>display-money-send-conf-form<?php endif; ?>">
+                <form method="POST" class="money-send-conf-form <?php if ((!isset($result) || (false === $result)) && !$outer_address): ?>display-money-send-conf-form<?php endif; ?>">
                     <input type="hidden" name="check" value="" />
 
                     <button type="submit" class="btn btn-primary">
@@ -457,21 +510,20 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                     </button>
                 </form>
 
-                <?php if (isset($result) && (false === $result) && (false !== $error)) : ?>
+                <?php if (isset($result) && (false === $result) && (false !== $error)): ?>
                     <code style="color: red;">
                         <br/>
                         <?= $error ?>
                     </code>
                 <?php endif; ?>
 
-                <div class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result) && (false === $error)) : ?>display-tx-not-conf-yet-msg<?php endif; ?>" role="alert">
-                    <?=$info?>
+                <div class="tx-not-conf-yet-msg <?php if (isset($result) && (false === $result) && (false === $error)): ?>display-tx-not-conf-yet-msg<?php endif; ?>" role="alert">
+                    <?= $info ?>
                 </div>
-
 
                 <br>
 
-                <div class="deleting-slot-form <?php if ($allow_delete) : ?>display-deleting-slot-form<?php endif; ?>">
+                <div class="deleting-slot-form <?php if ($allow_delete): ?>display-deleting-slot-form<?php endif; ?>">
                     <form method="POST" class="float-right">
                         <input type="hidden" name="delete" value="" />
                         <button type="submit" class="btn btn-danger">
@@ -480,9 +532,9 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                     </form>
                 </div>
 
-                <?php if ($allow_edit) : ?>
-                    <a class="btn btn-primary" href="/edit.php?slot=<?= $slot['slot_id'] ?>">
-                        Edit Name-Value record
+                <?php if ($allow_edit): ?>
+                    <a class="btn btn-primary eddit-NVS" href="/edit.php?slot=<?= $slot['slot_id'] ?>">
+                        Edit Name-Value Record
                     </a>
                 <?php endif; ?>
             </div>
@@ -500,15 +552,13 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             document.body.appendChild(input);
             input.select();
             var result = document.execCommand('copy');
-            document.body.removeChild(input)
+            document.body.removeChild(input);
             return result;
         }
 
         function CreateBookmarkLink() {
-
             title = "NVS exchange";
             //or title = document.title
-
             url = "<?= $actual_link ?>";
             //or url = location.href
 
@@ -517,23 +567,20 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             } else if (window.external && window.external.AddFavorite) { // IE Favorite
                 window.external.AddFavorite(url, title);
             }
-
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
     <!-- jQuery script for light/dark mode toggle -->
     <script src="/js/darkmode.js"></script>
 
-<?php if (!isset($_COOKIE['darkmode']) || (1 == $_COOKIE['darkmode'])) : ?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".toggle-icon").trigger("click")
-        })
-    </script>
-<?php endif; ?>
+    <?php if (!isset($_COOKIE['darkmode']) || (1 == $_COOKIE['darkmode'])): ?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".toggle-icon").trigger("click");
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
-
 </html>

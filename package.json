@@ -1,0 +1,17 @@
+{
+  "name": "nvs-exchange-1",
+  "version": "1.0.0",
+  "description": "Execute",
+  "main": "fiveserver.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "five-server start",
+    "stop": "five-server stop"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

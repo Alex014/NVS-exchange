@@ -39,6 +39,10 @@ h1.dark-mode, h3.dark-mode {
         color: green;
 }
 
+.header.dark-mode {
+        background-color: white;
+}
+
 .form-control.dark-mode {
         outline-color: green;
         border: 2px solid greenyellow;

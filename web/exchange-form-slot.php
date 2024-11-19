@@ -53,211 +53,251 @@ if ('generated' === $status) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <title>Slot # <?= $slot['id'] ?></title>
     <style>
-        /* Laptops */
-        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
-            
-        .btn-primary, .btn-success, .btn-danger, .copy-button {
-           
-           cursor: pointer;
 
-       }
+/* Modern Reset and Base Styles */
+:root {
+    /* Color Palette */
+    --primary-color: #367CA5;
+    --secondary-color: #1B4F73;
+    --accent-color: #4CAF50;
+    --error-color: #FF5A5A;
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --white: #FFFFFF;
+    --light-gray: #f9f9f9;
+    --border-color: #e0e0e0;
 
-       .btn-primary:hover {
-           background-color: #1F4E79;
-       }
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
+    /* Shadows and Transitions */
+    --shadow-subtle: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-medium: 0 10px 25px rgba(0,0,0,0.15);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
-       input[type="text"]:hover {
-            border: 3px solid slateblue;
-            border-radius: 6px;
-             }
-     .btn-success:hover {
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-            background-color: chartreuse;
-                   }
-     .btn-danger:hover {
+body {
+    font-family: var(--font-primary);
+    background-color: var(--primary-color);
+    line-height: 1.6;
+    color: var(--text-color);
+}
 
-            background-color: firebrick;
-               }        
+h1 {
+    font-size: 14px;
+}
 
-          }
+h2, h3 {
+    font-size: 12pt;
+    color: #555;
+}
 
-          /* Desktops */
-        @media only screen and (min-width: 1281px) {
-            .btn-primary, .btn-success, .btn-danger, .copy-button {
-           
-            cursor: pointer;
+/* Container Styles */
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-medium);
+    padding: 2.5rem;
+    position: relative;
+}
 
-        }
+/* Modern Float Label Input */
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
 
-        .btn-primary:hover {
-            background-color: #1F4E79;
-        }
-         
-        input[type="text"]:hover {
-            border: 3px solid slateblue;
-            border-radius: 6px;
-             }
-      
-        
-        .btn-success:hover {
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    outline: none;
+    transition: var(--transition-smooth);
+    font-size: 16px;
+}
 
-                background-color: chartreuse;
-             }
+.form-label {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    transition: var(--transition-smooth);
+    pointer-events: none;
+    background-color: var(--white);
+    border-radius: 5px;
+    padding: 0 6px;
+}
 
-        .btn-danger:hover {
+.form-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(54, 124, 165, 0.1);
+}
 
-                background-color: firebrick;
-            }
-          }
-          
-        body {
-            background: #367CA5;
-            color: #333; 
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+.form-input:focus + .form-label,
+.form-input:not(:placeholder-shown) + .form-label {
+    top: -10px;
+    left: 1px;
+    font-size: 12px;
+    color: var(--primary-color);
+}
 
-        .container {
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 85%;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition-smooth);
+    font-size: 14px;
+}
 
-        .alert {
-            
-            color: #FF5A5A;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 10px;
-            font-style: italic;
-            font-weight: bold;
-            display: none;
-            
-        }
-        
-        .tx-not-conf-yet {
-             display: block;
-        }
-        
-        .alert-success {
-             color: #4CAF50;
-        }
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
 
-        .btn-primary {
-            background-color: #367CA5;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            padding: 8px 14px;
-            margin-left: 1%;
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-subtle);
+}
 
-        }
+.btn-success {
+    background-color: var(--accent-color);
+    color: var(--white);
+}
 
-        .btn-primary:active {
-            background-color: #1B4F73;
-        }
+.btn-success:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 
-        .btn-success {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            padding: 8px 15px;
-            float: right;
+.btn-danger {
+    background-color: var(--error-color);
+    color: var(--white);
+}
 
-        }
-        
-        .btn-danger {
-             background-color: #FF5A5A;
-             border: none;
-             color: white;
-             border-radius: 5px;
-             padding: 8px 15px;
+.btn-danger:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 
-        }
-        
-        .btn-danger:active {
-             background-color: lightcoral;
-        }
+/* Address and Copy Styles */
+.address-container {
+    background-color: var(--light-gray);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .btn-success:active {
-            background-color: #45a049;
-        }
+.address-text {
+    font-size: 14px;
+    color: var(--text-color);
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
 
-        .text-line {
-            text-decoration: underline;
-            font-size: 0.6em;
-            color: dimgrey;
-            font-style: italic;
-        }
-        
-        .address, .payment-address {
-             font-size: 0.8em;
-             color: dimgrey;
-             font-style: italic;
-        }
+.copy-btn {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+}
 
-        .copy-button {
-            height: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+.copy-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
 
-        }
-        
-        .copy-button:active {
-             background-color: lightgreen;
-        }
+/* Alert Styles */
+.alert {
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
 
-        .tip {
-            background-color: #263646;
-            padding: 0 14px;
-            line-height: 27px;
-            position: absolute;
-            border-radius: 4px;
-            z-index: 100;
-            color: #fff;
-            font-size: 12px;
-            animation-name: tip;
-            animation-duration: .6s;
-            animation-fill-mode: both;
-        }
+.alert-success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
 
-        .tip:before {
-            content: "";
-            background-color: #263646;
-            height: 10px;
-            width: 10px;
-            display: block;
-            position: absolute;
-            transform: rotate(45deg);
-            top: -4px;
-            left: 17px;
-        }
+.alert-danger {
+    background-color: rgba(255, 90, 90, 0.1);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
 
-        #copied_tip {
-            animation-name: come_and_leave;
-            animation-duration: 1s;
-            animation-fill-mode: both;
-            bottom: -35px;
-            left: 2px;
-        }
-        
-        input {
-        
-           border: 2px solid #367CA5;
-           outline-color: skyblue;
-           border-radius: 3px;
-           margin: 1.4%;
-           padding: 8px;  
-        }
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 1.5rem;
+        width: calc(100% - 2rem);
+        border-radius: 12px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .address-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .copy-btn {
+        margin-top: 10px;
+        width: 100%;
+    }
+}
+
+/* Animation for Copy Tip */
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
+
+.copy-tip {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text-color);
+    color: var(--white);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    animation: fadeInOut 2s;
+}
         
         .active-and-generated-conf-money-send-form, 
         .h2,
@@ -300,73 +340,59 @@ if ('generated' === $status) {
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1><a href="/">&lt;&lt;&lt; GO BACK</a></h1>
+            <h1><a href="/">&lt;&lt;&lt; GO BACK</a></h1> <br>
             
             <?php if ($active): ?>
-            
-            <?php if ('generated' === $status): ?>
-            
-            <!-- Form for confirming money send -->
-            <form 
-            method="POST"
-         class="active-and-generated-conf-money-send-form <?php if ($active && 'generated'=== $status): ?>display-active-and-generated-conf-money-send-form<?php endif; ?>">
-                <input 
-                 type="text" 
-                 name="check" 
-                 value="" 
-                 placeholder="Enter confirmation"
-                 required />
-                <button 
-                type="submit" 
-                class="btn btn-primary">
-                Confirm money send
-                </button>
-            </form>
-            
+    <?php if ('generated' === $status): ?>
+        <!-- Form for confirming money send -->
+        <form method="POST" class="active-and-generated-conf-money-send-form">
+            <div class="form-group">
+                <input type="text" id="confirmation" class="form-input" placeholder=" " required />
+                <label for="confirmation" class="form-label">Enter Confirmation</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Confirm Money Send</button>
+        </form>
+        
         <!-- Loop through addresses to send money to -->
         <?php foreach ($slot['addr'] as $name => $addr): ?>
-  <h2 class="h2 <?php if ($active && 'generated' === $status): ?>h2-shown<?php endif; ?>">
-    <b><?= $addr['descr'] ?></b> Send <?= $addr['min_sum'] ?> <?= $name ?> to:
-    <div class="d-flex mb-3">
-      <span class="text-line me-2"><?= $addr['addr'] ?> 
-      </span>
-      <button 
-        onclick="copy('<?= $addr['addr'] ?>','#copy_button_<?= $name ?>')" 
-        id="copy_button_<?= $name ?>" class="btn btn-sm btn-success copy-button">
-        Copy
-      </button>
-      <div class="qr-code-container">
-        <canvas id="qr-code-<?= $name ?>" width="100" height="100"></canvas>
-        <span class="qr-code-label"><?= $name ?></span>
-      </div>
-    </div>
-  </h2>
+            <h2 class="h2 <?php if ($active && 'generated' === $status): ?>h2-shown<?php endif; ?>">
+                <b><?= $addr['descr'] ?></b> SEND <?= $addr['min_sum'] ?> <?= $name ?> TO:
+                <div class="d-flex mb-3">
+                    <span class="text-line me-2 address-text"><?= htmlentities($addr['addr']) ?></span>
+                    <button 
+                        onclick="copy('<?= htmlentities($addr['addr']) ?>','#copy_button_<?= $name ?>')" 
+                        id="copy_button_<?= $name ?>" class="btn btn-sm btn-success copy-button">
+                        Copy
+                    </button>
+                    <div class="qr-code-container">
+                        <canvas id="qr-code-<?= $name ?>" width="100" height="100"></canvas>
+                        <span class="qr-code-label"><?= $name ?></span>
+                    </div>
+                </div>
+            </h2>
 
-  <script>
-    $(document).ready(function() {
-      var qrCode = new QRCode(document.getElementById("qr-code-<?= $name ?>"), {
-        text: "<?= $addr['addr'] ?>",
-        width: 100,
-        height: 100,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    });
-  </script>
-<?php endforeach; ?>
-            
-            <?php endif; ?>
+            <script>
+                $(document).ready(function() {
+                    $('#qr-code-<?= $name ?>').qrcode({
+                        text: "<?= htmlentities($addr['addr']) ?>",
+                        width: 100,
+                        height: 100
+                    });
+                });
+            </script>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
             
             <!-- Display the slot's address and payment address -->
             <h3>Address: 
               <span class="address">
-                   <?= htmlentities($slot['address']) ?>
+                   <?= htmlentities($slot['address']) ?> 
               </span>
               </h3>
               
             <h3>Payment address:         
-              <span class="payment-address"><?= nl2br(htmlentities($slot['pay_address'])) ?>
+              <span class="payment-address"><?= nl2br(htmlentities($slot['pay_address'])) ?> 
               </span>
             </h3>
               
@@ -377,35 +403,45 @@ if ('generated' === $status) {
          </div>
             
             <!-- Forms for confirming money send and deleting slot -->
-            <div class="float-start">
+            <div class="form-section float-start">
                 <form method="POST" 
-              class="conf-money-send-and-deleting-slot-form <?php if ('generated' === $status): ?>display-conf-money-send-and-deleting-slot-form<?php endif; ?>">
-                    <input 
-                      type="text" 
-                      name="check" 
-                      value="" 
-                      placeholder="Enter confirmation"
-                      required />
+                    class="conf-money-send-and-deleting-slot-form <?php if ('generated' === $status): ?>display-conf-money-send-and-deleting-slot-form<?php endif; ?>">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="confirmationInput"
+                            name="check" 
+                            class="form-input" 
+                            placeholder=" " 
+                            required 
+                        />
+                        <label for="confirmationInput" class="form-label">Enter Confirmation</label>
+                    </div>
                     <button 
-                     type="submit" 
-                     class="btn btn-primary">
-                     Confirm money send
+                        type="submit" 
+                        class="btn btn-primary">
+                        Confirm Money Send
                     </button>
                 </form>
             </div>
-            <div class="float-end">
+            <div class="form-section">
                 <form method="POST" 
-                 class="delete-slot-form <?php if ('generated' === $status): ?>display-delete-slot-form<?php endif; ?>">
-                    <input 
-                     type="text" 
-                     name="delete" 
-                     value="" 
-                     placeholder="Enter slot to delete"
-                     required />
+                    class="delete-slot-form <?php if ('generated' === $status): ?>display-delete-slot-form<?php endif; ?>">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="deleteConfirmationInput"
+                            name="delete" 
+                            class="form-input" 
+                            placeholder=" " 
+                            required 
+                        />
+                        <label for="deleteConfirmationInput" class="form-label">Enter Slot to Delete</label>
+                    </div>
                     <button 
-                     type="submit" 
-                     class="btn btn-danger">
-                     Delete slot (!)
+                        type="submit" 
+                        class="btn btn-danger">
+                        Delete Slot (!)
                     </button>
                 </form>
             </div>
@@ -413,20 +449,25 @@ if ('generated' === $status) {
             <?php elseif ('payed' === $status): ?>
             
             <!-- Form for reloading the page -->
-            <div class="float-start">
+            <div class="form-section">
                 <form method="GET" 
-                class="payed-reload-form <?php if ('payed' === $status): ?>display-payed-reload-form<?php endif; ?>">
-                    <input 
-                     type="text" 
-                     name="slot" 
-                     value="" 
-                     placeholder="Press Reload button"
-                     />
-                   <button 
-                    type="submit" 
-                    class="btn btn-primary">
-                    Reload
-                   </button>
+                    class="payed-reload-form <?php if ('payed' === $status): ?>display-payed-reload-form<?php endif; ?>">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="reloadSlotInput"
+                            name="slot" 
+                            class="form-input" 
+                            placeholder=" " 
+                            required 
+                        />
+                        <label for="reloadSlotInput" class="form-label">Press Reload Button</label>
+                    </div>
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary">
+                        Reload
+                    </button>
                 </form>
             </div>
             
@@ -438,37 +479,51 @@ if ('generated' === $status) {
                 Waiting for the exchange to accept the token (This can take up to 10 min)...
             </div>
             
-  <div class="float-start">
-     <form method="GET"
-     class="payed-reload-form <?php if ('payed' === $status): ?>display-payed-reload-form<?php endif; ?>">
-         <input 
-            type="text" 
-            name="slot" 
-            value=""
-            placeholder="Press Reload button"
-            />
-          <button 
-             type="submit" 
-             class="btn btn-primary">
-             Reload
-          </button>
-      </form>
-  </div>
+            <div class="form-section">
+                <form method="GET" 
+                    class="payed-reload-form <?php if ('payed' === $status): ?>display-payed-reload-form<?php endif; ?>">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="reloadSlotInput"
+                            name="slot" 
+                            class="form-input" 
+                            placeholder=" " 
+                            required 
+                        />
+                        <label for="reloadSlotInput" class="form-label">Press Reload Button</label>
+                    </div>
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary">
+                        Reload
+                    </button>
+                </form>
+            </div>
   
   
   <?php elseif ('activated' === $status): ?>
         
         <!-- Form for reloading the page -->
-        <div class="float-start">
+        <div class="form-section">
             <form method="GET" 
-            class="token-activation-reload-form <?php if ('activated' === $status): ?>display-token-activation-reload-form<?php endif; ?>">
-                <input 
-                 type="text" 
-                 name="slot" 
-                 value="" 
-                 placeholder="Press Reload button"
-                 />
-                <button type="submit" class="btn btn-primary">Reload</button>
+                class="token-activation-reload-form <?php if ('activated' === $status): ?>display-token-activation-reload-form<?php endif; ?>">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="tokenActivationReloadInput"
+                        name="slot" 
+                        class="form-input" 
+                        placeholder=" " 
+                        required 
+                    />
+                    <label for="tokenActivationReloadInput" class="form-label">Press Reload Button</label>
+                </div>
+                <button 
+                    type="submit" 
+                    class="btn btn-primary">
+                    Reload
+                </button>
             </form>
         </div>
         
@@ -481,10 +536,10 @@ if ('generated' === $status) {
             <p>Your token is activated !</p>
         </div>
         
-        <p style="color: grey; font-style: italic;" 
+        <p style="color: grey; font-style: italic; font-family: 'Courier New', monospace; font-size: 12pt" 
          class="token-activated-token-info <?php if ('activated' === $status): ?>display-token-activated-token-info<?php endif; ?>">You have <b><?= $slot['hours'] ?></b> HOURS on <b><?= $slot['address'] ?></b> (v1)</p>
          
-        <p style="color: grey; font-style: italic;" 
+        <p style="color: grey; font-style: italic; font-family: 'Courier New', monospace;" 
         class="token-activated-token-info <?php if ('activated' === $status): ?>display-token-activated-token-info<?php endif; ?>">Transmit any amount (0.000001)</p>
         
         <!-- Copy address buttons -->
@@ -513,23 +568,28 @@ if ('generated' === $status) {
             </button>
         </div>
         
-        <p style="color: grey; font-style: italic;" 
+        <p style="color: grey; font-style: italic; font-family: 'Courier New', monospace; font-size: 12pt" 
         class="ness-to-receive-info <?php if ('activated' === $status): ?>display-ness-to-receive-info<?php endif; ?>">You will receive <?= $slot['recieve'] ?> NESS on your address <b><?= $slot['pay_address'] ?></b> (v2)</p>
         
         <!-- Form for reloading the page -->
-        <div class="float-start">
+        <div class="form-section">
             <form method="GET" 
-            class="ness-to-receive-reload-form <?php if ('activated' === $status): ?>display-ness-to-receive-reload-form<?php endif; ?>">
-                <input 
-                 type="text" 
-                 name="slot" 
-                 value="" 
-                 placeholder="Press Reload button"
-                  />
+                class="ness-to-receive-reload-form <?php if ('activated' === $status): ?>display-ness-to-receive-reload-form<?php endif; ?>">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="nessToReceiveReloadInput"
+                        name="slot" 
+                        class="form-input" 
+                        placeholder=" " 
+                        required 
+                    />
+                    <label for="nessToReceiveReloadInput" class="form-label">Press Reload Button</label>
+                </div>
                 <button 
-                 type="submit" 
-                 class="btn btn-primary">
-                 Reload
+                    type="submit" 
+                    class="btn btn-primary">
+                    Reload
                 </button>
             </form>
         </div>
@@ -542,16 +602,16 @@ if ('generated' === $status) {
             <p><b>Your token is paid !</b></p>
         </div>
         
-        <p style="color: grey; font-style: italic;" 
+        <p style="color: grey; font-style: italic; font-family: 'Courier New', monospace; font-size: 12pt" 
         class="hours-payment-success-hours-info <?php if ('done' === $status): ?>display-hours-payment-success-hours-info<?php endif; ?>">You had <b><?= $slot['hours'] ?></b> HOURS on <b><?= $slot['address'] ?></b> (v1)
         </p>
         
-        <p style="color: grey; font-style: italic;" 
+        <p style="color: grey; font-style: italic; font-family: 'Courier New', monospace; font-size: 12pt" 
         class="ness-amount-received-info <?php if ('done' === $status): ?>display-ness-amount-received-info<?php endif; ?>">You have been paid <?= $slot['recieve'] ?>
          NESS
         </p>
         
-        <p style="color: grey; font-style: italic;"
+        <p style="color: grey; font-style: italic; font-family: 'Courier New', monospace; font-size: 12pt;"
          class="token-balance-address <?php if ('done' === $status): ?>display-token-balance-address<?php endif; ?>">
              Check your balance at <b><?= $slot['pay_address'] ?></b> (v2)
         </p>
