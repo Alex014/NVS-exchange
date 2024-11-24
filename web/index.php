@@ -152,7 +152,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
             pointer-events: none;
             background-color: var(--white);
             border-radius: 5px;
-            padding: 0 6px;
+            padding: 0px 6px 10px 6px;
         }
 
         .form-input:focus, textarea:focus {
@@ -301,7 +301,7 @@ if (!empty($_POST['name']) && !empty($_POST['value']) && !empty($_POST['days']))
                     class="form-input" 
                     placeholder=" " 
                     required
-                ><?= $value ?></ </textarea>
+                ><?= $value ?></textarea>
                 <label for="value" class="form-label">Value</label>
                 <div class="form-text">Enter desired or requested NVS Value</div>
             </div>

@@ -179,7 +179,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             transition: var(--transition-smooth);
             pointer-events: none;
             background-color: var(--white);
-            padding: 0 6px;
+            padding: 0px 6px 10px 6px;
         }
 
         .form-input:focus {

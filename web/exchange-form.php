@@ -173,7 +173,7 @@ if ($active && !empty($_POST['address']) && !empty($_POST['pay_address'])) {
             pointer-events: none;
             background-color: var(--white);
             border-radius: 5px;
-            padding: 0 6px;
+            padding: 0px 6px 10px 6px;
         }
         
         .form-input:focus {
