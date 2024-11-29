@@ -1,63 +1,128 @@
-/* Additional styles for dark mode */
-body.dark-mode {
-    background-color: #15202B;
-    color: #FFFFFF;
-}
-
-.btn-primary.dark-mode {
-    background-color: green;
-    color: #15202B;
-    font-weight: bold;
-
-}
-
-.btn-primary.dark-mode:active {
-    background-color: green;
-}
-
-.toggle-icon {
-        width: 100px;
-        height: 40px;
-        
-        cursor: pointer;
-        
-        
-}
-
-.container.dark-mode {
-        color: green;
-        box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.5);
-        background-color: #15202B;
-}
-
-.form-text.dark-mode {
-        font-weight: bold;
-        color: green;
-}
-
-h1.dark-mode, h3.dark-mode {
-        color: green;
-}
-
-.header.dark-mode {
-        background-color: white;
-}
-
-.form-control.dark-mode {
-        outline-color: green;
-        border: 2px solid greenyellow;
-        
-}
-
-.form-label.dark-mode, .faucet.dark-mode {
-    color: green;
-}
-
-
-.text-line.dark-mode {
-        color: green;
-}
+:root {
+        --matrix-green: #00ff41;
+        --matrix-dark: #001100;
+        --matrix-mid-green: #00bb00;
+    }
     
-.name.dark-mode, .value.dark-mode {
+    /* Additional styles for dark mode */
+    body.dark-mode {
+        background-color: var(--matrix-dark);
+        color: var(--matrix-green);
+        font-family: 'Courier New', monospace;
+    }
+
+    input.dark-mode, textarea.dark-mode {
+        background-color: var(--matrix-dark);
+        border: 1px solid var(--matrix-green);
+        border-radius: 0;
+        color: var(--matrix-green);
+        font-family: 'Courier New', monospace;
+    }
+
+    input.dark-mode:focus, textarea.dark-mode:focus {
+        border: 1px solid var(--matrix-mid-green);
+    }
+    .bookmark.dark-mode, #copy_url {
+        text-decoration: none;
         color: white;
-}
+    }
+    
+    .btn-primary.dark-mode {
+        background-color: var(--matrix-green);
+        color: var(--matrix-dark);
+        font-family: 'Courier New', monospace;
+        border-radius: 0;
+    }
+    
+    .btn-primary.dark-mode:active {
+        background-color: var(--matrix-mid-green);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--matrix-mid-green);
+        transform: scale(1.05);
+    }
+
+    .looping-address.dark-mode,
+    .send-min.dark-mode,
+    .address-text.dark-mode,
+    .address.dark-mode,
+    .payment-address.dark-mode {
+        color: white;
+    }
+    
+    .toggle-icon {
+        width: 60px;
+        height: 24px;
+        cursor: pointer;
+    }
+    
+    .container.dark-mode {
+        border: 2px solid var(--matrix-green);
+        color: var(--matrix-green);
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        background-color: black; /* You can adjust this if needed */
+        opacity: 0.9;
+    }
+    
+    .form-text.dark-mode {
+        font-weight: bold;
+        color: var(--matrix-green);
+    }
+    
+    h1.dark-mode, h3.dark-mode {
+        color: var(--matrix-green);
+    }
+    
+    .header.dark-mode {
+        background-color: #001100; /* Adjust this if needed */
+    }
+    
+    .form-control.dark-mode {
+        outline-color: var(--matrix-green);
+        border: 2px solid var(--matrix-mid-green);
+    }
+    
+    .form-label.dark-mode, .faucet.dark-mode {
+        color: var(--matrix-green);
+    }
+    
+    .text-line.dark-mode, .address.dark-mode {
+        color: white;
+    }
+    
+    .name.dark-mode, .value.dark-mode {
+        color: white; /* Adjust if needed for better contrast */
+    }
+
+    /* Matrix Code Rain Animation */
+    @keyframes matrix-rain {
+        0% { 
+            transform: translateY(-100%); 
+            opacity: 0;
+        }
+        100% { 
+            transform: translateY(100vh); 
+            opacity: 0.3;
+        }
+    }
+
+    .matrix-code {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .matrix-code span {
+        position: absolute;
+        font-size: 15px;
+        color: var(--matrix-green, #00ff41);
+        opacity: 0.1;
+        font-family: 'Courier New', monospace;
+        animation: matrix-rain linear infinite;
+    }

@@ -96,6 +96,11 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             --light-gray: #f9f9f9;
             --border-color: #e0e0e0;
 
+            /* Matrix Palette */
+            --matrix-green: #00ff41;
+            --matrix-dark: #001100;
+            --matrix-mid-green: #00bb00;
+
             /* Typography */
             --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             
@@ -112,7 +117,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
         }
 
         body {
-            font-family: var(--font-primary);
+            font-family: 'Courier New', monospace;
             background-color: var(--primary-color);
             line-height: 1.6;
             color: var(--text-color);
@@ -141,6 +146,11 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 
         h2, h3, .bookmark {
             font-size: 10pt;
+        }
+
+        .bookmark, #copy_url {
+            color: #555;
+            text-decoration: none;
         }
 
         .eddit-NVS {
@@ -229,6 +239,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
     letter-spacing: 0.5px;
     transition: var(--transition-smooth);
     font-size: 14px;
+    font-family: 'Courier New', monospace;
 }
 
 .btn-primary:hover {
@@ -336,6 +347,8 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             color: black;
             font-family: 'Courier New', monospace;
             font-size: 10pt;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
 
 /* Tip Styles (for copy button) */
@@ -374,9 +387,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 }
 
 .text-line {
-            text-decoration: underline;
             color: black;
-            font-style: italic;
             font-size: 10pt;
         }
 
@@ -398,12 +409,79 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
 
     <link href="/css/darkmode.css" rel="stylesheet" />
 
+    
+    <!-- Primary SEO Meta Tags -->
     <title>
         Slot # <?= $slot['slot_id'] ?>
     </title>
+    <meta name="description" content="Secure, decentralized Name-Value Storage solution on Emercoin. Protect and manage your data with advanced blockchain technology. Easy, private, and reliable.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nvs.ness.cx/">
+    <meta property="og:title" content="NVS: Decentralized Name-Value Storage">
+    <meta property="og:description" content="Secure your data with Emercoin's advanced Name-Value Storage. Private, decentralized, and user-friendly blockchain solution.">
+    <meta property="og:image" content="https://nvs.ness.nx/social-share-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://nvs.ness.cx/">
+    <meta name="twitter:title" content="NVS: Secure Decentralized Data Storage">
+    <meta name="twitter:description" content="Protect your data with Emercoin's Name-Value Storage. Blockchain-powered, private, and secure.">
+    <meta name="twitter:image" content="https://nvs.ness.cx/social-share-image.jpg">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="Global">
+    <meta name="geo.position" content="0;0">
+    <meta name="ICBM" content="0, 0">
+    
+    <!-- Robots and Crawling -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://nvs.ness.cx/">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="keywords" content="NVS, Name-Value Storage, Emercoin, Blockchain, Decentralized Storage, Privacy, Secure Data, Cryptocurrency">
+    
+    <!-- Language and Localization -->
+    <meta http-equiv="content-language" content="en-US">
+    
+    <!-- Verification Tags (examples, replace with your actual verification codes) -->
+    <meta name="google-site-verification" content="your_google_verification_code">
+    <meta name="msvalidate.01" content="your_bing_verification_code">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NVS - Name-Value Storage",
+      "url": "https://yourapp.com",
+      "description": "Secure decentralized Name-Value Storage solution powered by Emercoin",
+      "applicationCategory": "Blockchain Storage",
+      "operatingSystem": "Web-based",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Community",
+        "name": "PrivateNess Network",
+        "logo": "https://nvs.ness.cx/logo.png"
+      }
+    }
+</script>
 </head>
 
 <body>
+    <div class="matrix-code" id="matrixCode"></div>
 
     <!-- Dark mode toggle icons -->
     <img class="toggle-icon" src="/img/dark-mode.png" alt="/img/dark-mode.png" >
@@ -432,12 +510,12 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                     <?php foreach ($slot['addr'] as $name => $addr): ?>
 
                         <h2>
-                            <b>
+                            <b class="address">
                                 <?= $addr['descr'] ?> 
                             </b>
                             SEND
                             <?= $addr['min_sum'] ?> 
-                            <?= $name ?> TO:
+                            <?= $name ?> TO: 
                             <div class="d-flex justify-content-between align-items-center mb-3">
 
                                 <span class="text-line me-2">
@@ -449,6 +527,7 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                                 </button>
                             </div>
                         </h2>
+                        
 
                     <?php endforeach; ?>
 
@@ -568,6 +647,21 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
                 window.external.AddFavorite(url, title);
             }
         }
+
+        function createMatrixRain() {
+            const codeContainer = document.getElementById('matrixCode');
+            
+            for (let i = 0; i < 100; i++) {
+                const span = document.createElement('span');
+                span.textContent = Math.random() > 0.5 ? '0' : '1';
+                span.style.left = `${Math.random() * 100}%`;
+                span.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                span.style.opacity = `${Math.random() * 0.3}`;
+                codeContainer.appendChild(span);
+            }
+        }
+
+        createMatrixRain();
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
@@ -581,6 +675,6 @@ $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP
             });
         </script>
     <?php endif; ?>
-
+    
 </body>
 </html>

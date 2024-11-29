@@ -13,6 +13,17 @@ $(document).ready(function () {
         $(".name").toggleClass("dark-mode");
         $(".value").toggleClass("dark-mode");
         $(".header").toggleClass("dark-mode");
+        $(".matrix-code span").toggleClass("dark-mode");
+        $(".bookmark").toggleClass("dark-mode");
+        $("#copy_url").toggleClass("dark-mode");
+        $(".address").toggleClass("dark-mode");
+        $("input").toggleClass("dark-mode");
+        $("textarea").toggleClass("dark-mode");
+        $(".looping-address").toggleClass("dark-mode");
+        $(".send-min").toggleClass("dark-mode");
+        $(".address-text").toggleClass("dark-mode");
+        $(".address").toggleClass("dark-mode");
+        $(".payment-address").toggleClass("dark-mode");
         // Change icon based on mode
         var iconPath = $("body").hasClass("dark-mode") ? "/img/light-mode.png" : "/img/dark-mode.png";
         $(".toggle-icon").attr("src", iconPath);
