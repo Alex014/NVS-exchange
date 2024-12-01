@@ -84,7 +84,8 @@
     }
     
     .form-label.dark-mode, .faucet.dark-mode {
-        color: var(--matrix-green);
+        color: var(--matrix-green) !important;
+        background-color: transparent !important;
     }
     
     .text-line.dark-mode, .address.dark-mode {
